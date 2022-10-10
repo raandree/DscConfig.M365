@@ -25,7 +25,7 @@
     'DscResource.DocGenerator'                        = 'latest'
 
     #DSC Resources
-    'Microsoft365DSC'                                 = '1.22.420.1'
+    'Microsoft365DSC'                                 = '1.22.1005.1'
 
     'Microsoft.Graph.Applications'                    = '1.9.5'
     'Microsoft.Graph.Authentication'                  = '1.9.5'
