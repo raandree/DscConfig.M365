@@ -5,8 +5,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Fixed
+### Added
 
-- Added
-
-Initial Release.
+- Initial Release.
+- Added configuration `ADAuthorizationPolicies`.
+- Added configuration `ADRoleSettings`.
+- Added configuration `ADSecurityDefaults`.
