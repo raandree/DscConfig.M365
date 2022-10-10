@@ -1,4 +1,4 @@
-configuration AADAuthorizationPolicies {
+configuration ADAuthorizationPolicies {
 
     param
     (
