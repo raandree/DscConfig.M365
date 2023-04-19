@@ -12,15 +12,13 @@ Items:
       - Other
     CloudAppSecurityIsEnabled: True
     CloudAppSecurityType: MonitorOnly
+    Id: bf2419ee-3580-4324-bb6c-60292ac33e1b
     DisplayName: Allin-example
     ExcludeApplications:
       - 803ee9ca-3f7f-4824-bd6e-0b99d720c35c
       - 00000012-0000-0000-c000-000000000000
       - 00000007-0000-0000-c000-000000000000
       - Office365
-    ExcludeDevices:
-      - Compliant
-      - DomainJoined
     ExcludeLocations:
       - Blocked Countries
     ExcludePlatforms:
@@ -42,8 +40,6 @@ Items:
       - GuestsOrExternalUsers
     GrantControlOperator: OR
     IncludeApplications:
-      - All
-    IncludeDevices:
       - All
     IncludeLocations:
       - AllTrusted
