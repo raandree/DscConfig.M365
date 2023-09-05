@@ -1,7 +1,7 @@
 task Create_DSC_Resource_Yaml_File {
 
-    if (-not $dscResources) {
-
+    if (-not $dscResources)
+    {
         $dscResources = 'AADTenantDetails',
         'AADConditionalAccessPolicy',
         'AADNamedLocationPolicy',
@@ -28,16 +28,20 @@ task Create_DSC_Resource_Yaml_File {
         Microsoft365DSC = [ordered]@{}
     }
 
-    foreach ($item in $scalar) {
+    foreach ($item in $scalar)
+    {
         $compositeName = "c$($item.Name)" #Get-Name -Name $item.Name
-        $content.Microsoft365DSC.Add($item.Name, @{
+        $content.Microsoft365DSC.Add($item.Name,
+            @{
                 CompositeResourceName = $compositeName
                 ParameterType         = 'Scalar'
             })
     }
-    foreach ($item in $array) {
+    foreach ($item in $array)
+    {
         $compositeName = "c$($item.Name)" #Get-Name -Name $item.Name
-        $content.Microsoft365DSC.Add($item.Name, @{
+        $content.Microsoft365DSC.Add($item.Name,
+            @{
                 CompositeResourceName = $compositeName
                 ParameterType         = 'Array'
             })
