@@ -14,29 +14,62 @@
 
 param ()
 
-function ConvertTo-PowerShellType {
+function ConvertTo-PowerShellType
+{
     param (
         [Parameter(Mandatory = $true)]
         [string]
         $TypeName
     )
 
-    switch ($TypeName) {
-        'Boolean' { return 'bool' }
-        'DateTime' { return 'datetime' }
-        'MSFT_Credential' { return 'PSCredential' }
-        'SInt32' { return 'int' }
-        'SInt64' { return 'long' }
-        'String' { return 'string' }
-        'StringArray' { return 'string[]' }
-        'UInt16' { return 'System.UInt16' }
-        'UInt32' { return 'System.UInt32' }
-        
-        default { return $TypeName }
+    switch ($TypeName)
+    {
+        'Boolean'
+        {
+            return 'bool'
+        }
+        'DateTime'
+        {
+            return 'datetime'
+        }
+        'MSFT_Credential'
+        {
+            return 'PSCredential'
+        }
+        'SInt32'
+        {
+            return 'int'
+        }
+        'SInt64'
+        {
+            return 'long'
+        }
+        'String'
+        {
+            return 'string'
+        }
+        'StringArray'
+        {
+            return 'string[]'
+        }
+        'UInt16'
+        {
+            return 'System.UInt16'
+        }
+        'UInt32'
+        {
+            return 'System.UInt32'
+        }
+
+        default
+        {
+            return $TypeName
+        }
     }
 }
 
-function New-DscCompositeResourcePsd1Code {
+function New-DscCompositeResourcePsd1Code
+{
     param (
         [Parameter(Mandatory = $true)]
         [string]
@@ -76,7 +109,8 @@ function New-DscCompositeResourcePsd1Code {
 
 }
 
-function New-DscCompositeResourceCode {
+function New-DscCompositeResourceCode
+{
     param (
         [Parameter(Mandatory = $true)]
         [string]
@@ -102,22 +136,30 @@ function New-DscCompositeResourceCode {
 
     $dscParameters = Get-DscResourceProperty -ModuleInfo (Get-Module -Name $DscResourceModuleName -ListAvailable) -ResourceName $DscResourceName |
         Where-Object -FilterScript { $_.Name -notin 'PsDscRunAsCredential', 'DependsOn' }
-    
-    if (-not $dscParameters) {
+
+    if (-not $dscParameters)
+    {
         Write-Error "DSC Resource '$DscResourceName' not found in module '$DscResourceModuleName'."
     }
-    
-    if ($parameterType -eq 'Array') {
+
+    if ($parameterType -eq 'Array')
+    {
         [void]$code.AppendLine('        [Parameter()]')
         [void]$code.AppendLine('        [hashtable[]]')
         [void]$code.AppendLine('        $Items,')
     }
-    else {
-        foreach ($dscParameter in $dscParameters) {
+    else
+    {
+        foreach ($dscParameter in $dscParameters)
+        {
             $type = ConvertTo-PowerShellType -TypeName $dscParameter.TypeConstraint
-            $isMandatory = if ($dscParameter.Mandatory -or $dscParameter.IsKey) { $true }
+            $isMandatory = if ($dscParameter.Mandatory -or $dscParameter.IsKey)
+            {
+                $true
+            }
             [void]$code.AppendLine("        [Parameter($(if ($isMandatory) { 'Mandatory = $true' } ))]")
-            if ($dscParameter.Values) {
+            if ($dscParameter.Values)
+            {
                 [void]$code.AppendLine("        [ValidateSet('$(($dscParameter.Values -split ',').ForEach({$_.Trim()}) -join "', '")')]")
             }
             [void]$code.AppendLine("        [$($type)]")
@@ -133,7 +175,8 @@ function New-DscCompositeResourceCode {
     [void]$code.AppendLine('')
     [void]$code.AppendLine('<#')
     $dscResourceSyntax = $dscResourceSyntax.Where({ $_.ResourceName -eq $DscResourceName }) -split "`n"
-    foreach ($line in $dscResourceSyntax) {
+    foreach ($line in $dscResourceSyntax)
+    {
         [void]$code.AppendLine($line)
     }
     [void]$code.AppendLine('#>')
@@ -155,7 +198,8 @@ function New-DscCompositeResourceCode {
     [void]$code.AppendLine('    $dscParameterKeys = ''{0}'' -split '', ''' -f ($dscParameterKeys.Name -join ', '))
     [void]$code.AppendLine('')
 
-    if ($ParameterType -eq 'Scalar') {
+    if ($ParameterType -eq 'Scalar')
+    {
         [void]$code.AppendLine('    $keyValues = foreach ($key in $dscParameterKeys)')
         [void]$code.AppendLine('    {')
         [void]$code.AppendLine('        $param.$key')
@@ -167,7 +211,8 @@ function New-DscCompositeResourceCode {
         [void]$code.AppendLine('    (Get-DscSplattedResource -ResourceName $dscResourceName -ExecutionName $executionName -Properties $param -NoInvoke).Invoke($param)')
         [void]$code.AppendLine('')
     }
-    else {
+    else
+    {
         [void]$code.AppendLine('        foreach ($item in $Items)')
         [void]$code.AppendLine('        {')
         [void]$code.AppendLine('            if (-not $item.ContainsKey(''Ensure''))')
@@ -185,7 +230,7 @@ function New-DscCompositeResourceCode {
     }
 
     [void]$code.AppendLine('}')
-    
+
     $code.ToString()
 }
 
@@ -196,13 +241,15 @@ task Create_Dsc_Composite_Resources {
 
     $dscResourceModules = Get-Content -Path $SourcePath\DSCResources.yml -Raw | ConvertFrom-Yaml
 
-    foreach ($dscResourceModule in $dscResourceModules.GetEnumerator()) {
+    foreach ($dscResourceModule in $dscResourceModules.GetEnumerator())
+    {
 
         #Get syntax for all DSC Resources in the module. Getting them one by one is too slow.
         $dscResourceSyntax = Get-DscResource -Module $dscResourceModule.Name -Syntax
         $dscResourceSyntax | Add-Member -Name ResourceName -MemberType ScriptProperty -Value { ($this -split ' ')[0] }
-    
-        foreach ($dscResource in $dscResourceModule.Value.GetEnumerator()) {
+
+        foreach ($dscResource in $dscResourceModule.Value.GetEnumerator())
+        {
             $param = @{
                 DscResourceModuleName = $dscResourceModule.Name
                 DscResourceName       = $dscResource.Name
@@ -211,7 +258,7 @@ task Create_Dsc_Composite_Resources {
             }
 
             $utf8NoBomEncoding = [System.Text.UTF8Encoding]::new($false)
-        
+
             Write-Build DarkGray "Generating code DSC Composite Resource '$($dscResource.Value.CompositeResourceName)' for DSC Resource '$($dscResource.Name)'."
             $compositeResourceCode = New-DscCompositeResourceCode @param
             mkdir -Path "$SourcePath\DSCResources\$($param.CompositeResourceName)" -Force | Out-Null
