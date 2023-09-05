@@ -1,0 +1,47 @@
+Microsoft365DSC:
+  AADAuthorizationPolicy:
+    CompositeResourceName: cAADAuthorizationPolicy
+    ParameterType: Scalar
+  AADGroupLifecyclePolicy:
+    CompositeResourceName: cAADGroupLifecyclePolicy
+    ParameterType: Scalar
+  AADGroupsNamingPolicy:
+    CompositeResourceName: cAADGroupsNamingPolicy
+    ParameterType: Scalar
+  AADGroupsSettings:
+    CompositeResourceName: cAADGroupsSettings
+    ParameterType: Scalar
+  AADSecurityDefaults:
+    CompositeResourceName: cAADSecurityDefaults
+    ParameterType: Scalar
+  AADTenantDetails:
+    CompositeResourceName: cAADTenantDetails
+    ParameterType: Scalar
+  EXOTransportConfig:
+    CompositeResourceName: cEXOTransportConfig
+    ParameterType: Scalar
+  AADApplication:
+    CompositeResourceName: cAADApplication
+    ParameterType: Array
+  AADConditionalAccessPolicy:
+    CompositeResourceName: cAADConditionalAccessPolicy
+    ParameterType: Array
+  AADGroup:
+    CompositeResourceName: cAADGroup
+    ParameterType: Array
+  AADNamedLocationPolicy:
+    CompositeResourceName: cAADNamedLocationPolicy
+    ParameterType: Array
+  AADRoleDefinition:
+    CompositeResourceName: cAADRoleDefinition
+    ParameterType: Array
+  AADRoleSetting:
+    CompositeResourceName: cAADRoleSetting
+    ParameterType: Array
+  AADServicePrincipal:
+    CompositeResourceName: cAADServicePrincipal
+    ParameterType: Array
+  AADTokenLifetimePolicy:
+    CompositeResourceName: cAADTokenLifetimePolicy
+    ParameterType: Array
+

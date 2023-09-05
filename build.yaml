@@ -38,8 +38,19 @@ BuildWorkflow:
     - build
     - test
 
+  Init: |
+    {
+        if ($PSVersionTable.PSEdition -ne 'Desktop') {
+            Write-Error "The build script required Windows PowerShell 5.1 to work"
+        }
+    }
+
   build:
+    - Init
     - Clean
+    - Clean_Sources_Folder
+    - Create_DSC_Resource_Yaml_File
+    - Create_Dsc_Composite_Resources
     - Build_Module_ModuleBuilder
     - Build_NestedModules_ModuleBuilder
     - Create_Changelog_Release_Output

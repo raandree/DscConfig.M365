@@ -5,6 +5,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added check to prevent the build running in PS7+.
+- Removed hard-coded resources.
+- Updated M365DSC to 1.23.830.1.
+
 ## [0.2.2] - 2023-04-19
 
 ### Changed
