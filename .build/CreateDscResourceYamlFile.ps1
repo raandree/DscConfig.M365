@@ -2,23 +2,17 @@ task Create_DSC_Resource_Yaml_File {
 
     if (-not $dscResources)
     {
-        $dscResources = 'AADTenantDetails',
-        'AADConditionalAccessPolicy',
-        'AADNamedLocationPolicy',
-        'AADGroupsSettings',
-        'EXOTransportConfig',
-        'AADGroup',
-        'AADRoleSetting',
-        'AADSecurityDefaults',
-        'AADAuthorizationPolicy',
-        'AADApplication',
-        'AADGroupLifecyclePolicy',
-        'AADGroupsNamingPolicy',
-        'AADTokenLifetimePolicy',
-        'AADRoleDefinition',
-        'AADServicePrincipal'
+        $path = Get-SamplerAbsolutePath -Path tests\Unit\DSCResources\Assets\Config -RelativeTo $BuildRoot
+        $dscResources = dir -Path $path -Filter *.y*ml | ForEach-Object { $_.BaseName.Substring(1) }
 
-        $dscResources = Get-DscResource -Module Microsoft365DSC | Where-Object Name -In $dscResources
+        $dscResources = if ($dscResources)
+        {
+            Get-DscResource -Module Microsoft365DSC | Where-Object Name -In $dscResources
+        }
+        else
+        {
+            Get-DscResource -Module Microsoft365DSC
+        }
 
     }
     $scalar = $dscResources | Where-Object { $_.Properties.Name -contains 'IsSingleInstance' }
