@@ -46,7 +46,7 @@ BuildWorkflow:
     }
 
   build:
-    - Init
+    #- Init
     - Clean
     - Clean_Sources_Folder
     - Create_DSC_Resource_Yaml_File
@@ -54,8 +54,8 @@ BuildWorkflow:
     - Build_Module_ModuleBuilder
     - Build_NestedModules_ModuleBuilder
     - Create_Changelog_Release_Output
-    - Generate_Conceptual_Help
-    - Generate_Wiki_Content
+    #- Generate_Conceptual_Help
+    #- Generate_Wiki_Content
     - FixEncoding
 
   pack:
