@@ -1,4 +1,4 @@
-task Create_DSC_Resource_Yaml_File {
+task Create_Dsc_Resource_Yaml_File {
 
     if (-not $dscResources)
     {
@@ -15,8 +15,8 @@ task Create_DSC_Resource_Yaml_File {
         }
 
     }
-    $scalar = $dscResources | Where-Object { $_.Properties.Name -contains 'IsSingleInstance' }
-    $array = $dscResources | Where-Object { $_.Properties.Name -notcontains 'IsSingleInstance' }
+    $scalar = $dscResources | Where-Object { $_.Properties.Name -contains 'IsSingleInstance' } | Select-Object -First 1
+    $array = $dscResources | Where-Object { $_.Properties.Name -notcontains 'IsSingleInstance' } | Select-Object -First 1
 
     $content = @{
         Microsoft365DSC = [ordered]@{}
