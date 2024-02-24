@@ -86,13 +86,6 @@ stages:
               testRunTitle: 'HQRM'
             condition: succeededOrFailed()
 
-          - task: PublishPipelineArtifact@1
-            displayName: 'Publish Test Artifact'
-            inputs:
-              targetPath: '$(buildFolderName)/$(testResultFolderName)/'
-              artifactName: $(testArtifactName)
-              parallel: true
-
       - job: test_windows_ps
         displayName: 'Windows (Windows PowerShell)'
         timeoutInMinutes: 120
@@ -122,13 +115,6 @@ stages:
               testResultsFiles: '$(buildFolderName)/$(testResultFolderName)/NUnit*.xml'
               testRunTitle: 'Windows (Windows PowerShell)'
 
-          - task: PublishPipelineArtifact@1
-            displayName: 'Publish Test Artifact'
-            inputs:
-              targetPath: '$(buildFolderName)/$(testResultFolderName)/'
-              artifactName: 'CodeCoverageWinPS51'
-              parallel: true
-
       - job: test_ps
         displayName: 'Windows (PowerShell)'
         timeoutInMinutes: 120
@@ -157,63 +143,6 @@ stages:
               testResultsFormat: 'NUnit'
               testResultsFiles: '$(buildFolderName)/$(testResultFolderName)/NUnit*.xml'
               testRunTitle: 'Windows (PowerShell)'
-
-          - task: PublishPipelineArtifact@1
-            displayName: 'Publish Test Artifact'
-            inputs:
-              targetPath: '$(buildFolderName)/$(testResultFolderName)/'
-              artifactName: 'CodeCoverageWinPS51'
-              parallel: true
-
-      # If no code coverage should be reported, then this entire removed:
-      - job: Code_Coverage
-        displayName: 'Publish Code Coverage'
-        dependsOn:
-          - test_windows_ps
-        pool:
-          vmImage: 'ubuntu-latest'
-        timeoutInMinutes: 5
-        steps:
-          - pwsh: |
-              $repositoryOwner,$repositoryName = $env:BUILD_REPOSITORY_NAME -split '/'
-              echo "##vso[task.setvariable variable=RepositoryOwner;isOutput=true]$repositoryOwner"
-              echo "##vso[task.setvariable variable=RepositoryName;isOutput=true]$repositoryName"
-            name: dscBuildVariable
-            displayName: 'Set Environment Variables'
-
-          - task: DownloadPipelineArtifact@2
-            displayName: 'Download Pipeline Artifact'
-            inputs:
-              buildType: 'current'
-              artifactName: $(buildArtifactName)
-              targetPath: '$(Build.SourcesDirectory)/$(buildArtifactName)'
-
-          - task: DownloadPipelineArtifact@2
-            displayName: 'Download Test Artifact Windows (PS 5.1)'
-            inputs:
-              buildType: 'current'
-              artifactName: 'CodeCoverageWinPS51'
-              targetPath: '$(Build.SourcesDirectory)/$(buildFolderName)/$(testResultFolderName)'
-
-          # Make sure to update build.yaml to support these tasks, then uncomment these tasks:
-          #- task: PowerShell@2
-          #  name: merge
-          #  displayName: 'Merge Code Coverage files'
-          #  inputs:
-          #    filePath: './build.ps1'
-          #    arguments: '-tasks merge'
-          #    pwsh: true
-          #- task: PublishCodeCoverageResults@1
-          #  displayName: 'Publish Azure Code Coverage'
-          #  inputs:
-          #    codeCoverageTool: 'JaCoCo'
-          #    summaryFileLocation: '$(buildFolderName)/$(testResultFolderName)/JaCoCo_coverage.xml'
-          #    pathToSources: '$(Build.SourcesDirectory)/$(dscBuildVariable.RepositoryName)/'
-
-          # Uncomment if Codecov.io should be used (see docs at Codecov.io how to use and the required repository configuration).
-          #- script: |
-          #    bash <(curl -s https://codecov.io/bash) -f "./$(buildFolderName)/$(testResultFolderName)/JaCoCo_coverage.xml"
-          #  displayName: 'Publish Code Coverage to Codecov.io'
 
   - stage: Deploy
     dependsOn: Test
