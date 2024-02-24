@@ -86,6 +86,13 @@ stages:
               testRunTitle: 'HQRM'
             condition: succeededOrFailed()
 
+          - task: PublishPipelineArtifact@1
+            displayName: 'Publish Test Artifact'
+            inputs:
+              targetPath: '$(buildFolderName)/$(testResultFolderName)/'
+              artifactName: $(testArtifactName)
+              parallel: true
+
       - job: test_windows_ps
         displayName: 'Windows (Windows PowerShell)'
         timeoutInMinutes: 120
@@ -149,7 +156,7 @@ stages:
             inputs:
               testResultsFormat: 'NUnit'
               testResultsFiles: '$(buildFolderName)/$(testResultFolderName)/NUnit*.xml'
-              testRunTitle: 'Windows (Windows PowerShell)'
+              testRunTitle: 'Windows (PowerShell)'
 
           - task: PublishPipelineArtifact@1
             displayName: 'Publish Test Artifact'
