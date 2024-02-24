@@ -61,12 +61,12 @@ function Get-RequiredModulesFromMOF {
         $moduleVersion = $null
 
         Get-Content -Path $Path -Encoding Unicode | ForEach-Object {
-    
+
             $line = $_;
             if ($line -match '^\s?Instance of') {
                 ## We have a new instance so write the existing one
                 if (($null -ne $moduleName) -and ($null -ne $moduleVersion)) {
-            
+
                     $modules[$moduleName] = $moduleVersion;
                     $moduleName = $null
                     $moduleVersion = $null
@@ -178,11 +178,11 @@ function Clear-CachedDscResource {
 
     if ($pscmdlet.ShouldProcess($env:computername)) {
         Write-Verbose 'Stopping any existing WMI processes to clear cached resources.'
-        
+
         ### find the process that is hosting the DSC engine
         $dscProcessID = Get-WmiObject msft_providers |
           Where-Object {$_.provider -like 'dsccore'} |
-            Select-Object -ExpandProperty HostProcessIdentifier 
+            Select-Object -ExpandProperty HostProcessIdentifier
 
         ### Stop the process
         if ($dscProcessID -and $pscmdlet.ShouldProcess('DSC Process')) {
@@ -240,7 +240,7 @@ function Find-ModuleToPublish {
         [ValidateNotNullOrEmpty()]
         [String[]]
         $DscBuildSourceResources,
-        
+
         [ValidateNotNullOrEmpty()]
         [Microsoft.PowerShell.Commands.ModuleSpecification[]]
         $ExcludedModules = $null,
@@ -327,7 +327,7 @@ function Get-DscFailedResource {
             else {
                 $resourceNameOrPath = $resource.Name
             }
-            
+
             if (-not (Test-xDscResource -Name $resourceNameOrPath)) {
                 Write-Warning "`tResources $($_.name) is invalid."
                 $resource
@@ -349,7 +349,7 @@ function Get-DscResourceFromModuleInFolder {
         )]
         [ValidateNotNullOrEmpty()]
         $ModuleFolder,
-        
+
         [Parameter(
             Mandatory,
             ValueFromPipeline,
@@ -358,39 +358,47 @@ function Get-DscResourceFromModuleInFolder {
         [ValidateNotNullOrEmpty()]
         [System.Management.Automation.PSModuleInfo[]]
         $Modules
-        
     )
-    Begin {
-        $oldPSModulePath = $Env:PSmodulePath
-        $Env:PSmodulePath = $ModuleFolder
-        Write-Verbose "Retrieving all resources for $ModuleFolder."
-        $AllDscResource = Get-DscResource
-        $Env:PSmodulePath = $oldPSModulePath
+
+    Begin
+    {
+        $oldPSModulePath = $env:PSModulePath
+        $env:PSModulePath = $ModuleFolder
+        Write-Verbose "Retrieving all resources for '$ModuleFolder'."
+        $dscResources = Get-DscResource
+        $env:PSModulePath = $oldPSModulePath
+
+        $result = @()
     }
-    Process {
-        
-        Write-Verbose "Filtering the $($AllDscResource.Count) resources."
-        Write-Debug ('Resources {0}' -f ($AllDscResource | Format-Table -AutoSize | out-string))
-        $AllDscResource.Where{
-            $isResourceInModulesToPublish = Foreach ($Module in $Modules) {
-                if ( $null -eq $_.Module ) {
-                    Write-Debug "Excluding resource $($_.Name) without Module"
-                    Return $false
-                }
-                elseif ( !(compare-object $_.Module $Module -Property ModuleType, Version, Name) ) {
-                    Write-Debug "Resource $($_.Name) matches one of the supplied Modules."
-                    Return $true
-                }
+
+    process
+    {
+        Write-Verbose "Filtering the $($dscResources.Count) resources."
+        Write-Debug ($dscResources | Format-Table -AutoSize | Out-String)
+
+        foreach ($dscResource in $dscResources)
+        {
+            if ($null -eq $dscResource.Module)
+            {
+                Write-Debug "Excluding resource '$($dscResource.Name) - $($dscResource.Version)', it is not part of a module."
+                continue
             }
-            if (!$isResourceInModulesToPublish) {
-                Write-Debug "`tExcluding $($_.Name) $($_.Version)"
-                Return $false
-            }
-            else {
-                Write-Debug "`tIncluding $($_.Name) $($_.Version)"
-                Return $true
+
+            foreach ($module in $Modules) {
+
+                if (-not (Compare-Object -ReferenceObject $dscResource.Module -DifferenceObject $Module -Property ModuleType, Version, Name))
+                {
+                    Write-Debug "Resource $($dscResource.Name) matches one of the supplied Modules."
+                    Write-Debug "`tIncluding $($dscResource.Name) $($dscResource.Version)"
+                    $result += $dscResource
+                }
             }
         }
+    }
+
+    end
+    {
+        $result
     }
 }
 #EndRegion '.\Public\Get-DscResourceFromModuleInFolder.ps1' 54
@@ -524,8 +532,7 @@ function Get-DscSplattedResource
 
                     foreach ($cimSubProperty in $cimPropertyValue.GetEnumerator())
                     {
-                        $null = $stringBuilder.AppendLine("$($cimSubProperty.Name) = `$(`$Parameters['$PropertyName'][$($i)]['$($cimSubProperty.Name)'])")
-
+                        $null = $stringBuilder.AppendLine("$($cimSubProperty.Name) = `$Parameters['$PropertyName'][$($i)]['$($cimSubProperty.Name)']")
                     }
 
                     $null = $stringBuilder.AppendLine("}")
@@ -538,7 +545,7 @@ function Get-DscSplattedResource
             {
                 foreach ($cimProperty in $cimProperties.GetEnumerator())
                 {
-                    $null = $stringBuilder.AppendLine("$($cimProperty.Name) = `$(`$Parameters['$PropertyName']['$($cimProperty.Name)'])")
+                    $null = $stringBuilder.AppendLine("$($cimProperty.Name) = `$Parameters['$PropertyName']['$($($cimProperty.Name))']")
                 }
 
                 $null = $stringBuilder.AppendLine("}")
@@ -584,7 +591,7 @@ function Get-ModuleFromFolder {
         [ValidateNotNullOrEmpty()]
         [io.DirectoryInfo[]]
         $ModuleFolder,
-        
+
         [AllowNull()]
         [Microsoft.PowerShell.Commands.ModuleSpecification[]]
         $ExcludedModules = $null
@@ -613,11 +620,11 @@ function Get-ModuleFromFolder {
             Write-Debug -message "Checking if Module $source is Excluded."
             $isExcluded = foreach ($ExcludedModule in $ExcludedModules) {
                 Write-Debug "`t Excluded Module $ExcludedModule"
-                if ( ($ExcludedModule.Name -and $ExcludedModule.Name -eq $source.Name) -and 
+                if ( ($ExcludedModule.Name -and $ExcludedModule.Name -eq $source.Name) -and
                     (
-                        ( !$ExcludedModule.Version -and 
-                            !$ExcludedModule.Guid -and 
-                            !$ExcludedModule.MaximumVersion -and 
+                        ( !$ExcludedModule.Version -and
+                            !$ExcludedModule.Guid -and
+                            !$ExcludedModule.MaximumVersion -and
                             !$ExcludedModule.RequiredVersion ) -or
                         ($ExcludedModule.Version -and $ExcludedModule.Version -eq $source.Version) -or
                         ($ExcludedModule.Guid -and $ExcludedModule.Guid -ne $source.Guid) -or
@@ -634,7 +641,7 @@ function Get-ModuleFromFolder {
             }
         }
     }
-    
+
 }
 #EndRegion '.\Public\Get-ModuleFromFolder.ps1' 65
 #Region '.\Public\Initialize-DscResourceMetaInfo.ps1' 0
@@ -654,19 +661,19 @@ function Initialize-DscResourceMetaInfo
         $Force
     )
 
-    if ($script:allDscResourcePropertiesTable -and -not $Force)
+    if ($script:allDscResourcePropertiesTable.Count -ne 0 -and -not $Force)
     {
         return
     }
 
     $allModules = Get-ModuleFromFolder -ModuleFolder $ModulePath
-    $allDscResource = Get-DscResourceFromModuleInFolder -ModuleFolder $ModulePath -Modules $allModules
-    $modulesWithDscResources = $allDscResource | Select-Object -ExpandProperty ModuleName -Unique
+    $allDscResources = Get-DscResourceFromModuleInFolder -ModuleFolder $ModulePath -Modules $allModules
+    $modulesWithDscResources = $allDscResources | Select-Object -ExpandProperty ModuleName -Unique
     $modulesWithDscResources = $allModules | Where-Object Name -In $modulesWithDscResources
 
     $script:allDscResourcePropertiesTable = @{}
 
-    $script:allDscResourceProperties = foreach ($dscResource in $allDscResource)
+    $script:allDscResourceProperties = foreach ($dscResource in $allDscResources)
     {
         $cimProperties = if ($ReturnAllProperties)
         {
@@ -677,7 +684,8 @@ function Initialize-DscResourceMetaInfo
             Get-DscResourceProperty -ModuleInfo ($modulesWithDscResources |
             Where-Object Name -EQ $dscResource.ModuleName) -ResourceName $dscResource.Name |
             Where-Object {
-                $_.TypeConstraint -like 'MSFT_*' -and $_.TypeConstraint -notin 'MSFT_Credential', 'MSFT_KeyValuePair', 'MSFT_KeyValuePair[]'
+                ($_.TypeConstraint -match '(DSC|MSFT)_.+' -and $_.TypeConstraint -notin 'MSFT_Credential', 'MSFT_KeyValuePair', 'MSFT_KeyValuePair[]') -or
+                $_.IsDscClassParameter
             }
         }
 
@@ -715,7 +723,7 @@ function Publish-DscConfiguration {
     Process {
         Write-Verbose "Publishing Configuration MOFs from $DscBuildOutputConfigurations"
 
-        
+
         Get-ChildItem -Path (join-path -Path $DscBuildOutputConfigurations -ChildPath '*.mof') |
             foreach-object {
                 if ( !(Test-Path -Path $PullServerWebConfig) ) {
@@ -774,7 +782,7 @@ function Publish-DscResourceModule {
             }
         }
     }
-    
+
 }
 #EndRegion '.\Public\Publish-DscResourceModule.ps1' 46
 #Region '.\Public\Push-DscConfiguration.ps1' 0
@@ -792,15 +800,15 @@ function Push-DscConfiguration {
                    ,ValueFromPipelineByPropertyName
         )]
         [ValidateNotNullOrEmpty()]
-        [System.Management.Automation.Runspaces.PSSession] 
+        [System.Management.Automation.Runspaces.PSSession]
         $Session,
-        
+
         # Param2 help description
         [Parameter()]
         [Alias('MOF','Path')]
         [System.IO.FileInfo]
         $ConfigurationDocument,
-        
+
         # Param3 help description
         [Parameter()]
         [psmoduleinfo[]]
@@ -829,8 +837,8 @@ function Push-DscConfiguration {
         [switch]
         $Force
     )
-    
-   
+
+
     process {
         if ($pscmdlet.ShouldProcess($Session.ComputerName, "Applying MOF $ConfigurationDocument")) {
             if ($WithModule) {
@@ -868,7 +876,7 @@ function Push-DscConfiguration {
     Injects Modules via PS Session.
 
     .DESCRIPTION
-    Injects the missing modules on a remote node via a PSSession. 
+    Injects the missing modules on a remote node via a PSSession.
     The module list is checked again the available modules from the remote computer,
     Any missing version is then zipped up and sent over the PS session,
     before being extracted in the root PSModulePath folder of the remote node.
@@ -892,7 +900,7 @@ function Push-DscConfiguration {
     .EXAMPLE
     Push-DscModuleToNode -Module (Get-ModuleFromFolder C:\src\SampleKitchen\modules) -Session $RemoteSession -StagingFolderPath "C:\BuildOutput"
 
-#> 
+#>
 function Push-DscModuleToNode {
     [CmdletBinding()]
     [OutputType([void])]
@@ -904,10 +912,10 @@ function Push-DscModuleToNode {
             ,ValueFromPipelineByPropertyName
             ,ValueFromRemainingArguments
         )]
-        [Alias("ModuleInfo")] 
+        [Alias("ModuleInfo")]
         [System.Management.Automation.PSModuleInfo[]]
         $Module,
-        
+
         [Parameter(
             ,Position = 1
             ,ValueFromPipelineByPropertyName
@@ -980,7 +988,7 @@ function Push-DscModuleToNode {
         Write-Verbose "looking for missing zip modules in $($StagingFolderPath)"
         $MissingModules.where{ !(Test-Path "$StagingFolderPath\$($_.Name)_$($_.version).zip")} |
             Compress-DscResourceModule -DscBuildOutputModules $StagingFolderPath
-        
+
         # Copy missing modules to remote node if not present already
         foreach ($module in $MissingModules) {
             $FileName = "$($StagingFolderPath)/$($module.Name)_$($module.Version).zip"
@@ -1008,12 +1016,12 @@ function Push-DscModuleToNode {
         }
 
         # Extract missing modules on remote node to PSModulePath
-        Write-Verbose "Expanding $ResolvedRemoteStagingPath/*.zip to $Env:CommonProgramW6432\WindowsPowerShell\Modules\$($Module.Name)\$($module.version)" 
+        Write-Verbose "Expanding $ResolvedRemoteStagingPath/*.zip to $Env:CommonProgramW6432\WindowsPowerShell\Modules\$($Module.Name)\$($module.version)"
         Invoke-Command -Session $Session -ScriptBlock {
             Param($MissingModules,$PathToZips)
             foreach ($module in $MissingModules) {
                 $fileName = "$($module.Name)_$($module.version).zip"
-                Write-Verbose "Expanding $PathToZips/$fileName to $Env:CommonProgramW6432\WindowsPowerShell\Modules\$($Module.Name)\$($module.version)" 
+                Write-Verbose "Expanding $PathToZips/$fileName to $Env:CommonProgramW6432\WindowsPowerShell\Modules\$($Module.Name)\$($module.version)"
                 Expand-Archive -Path "$PathToZips/$fileName" -DestinationPath "$Env:ProgramW6432\WindowsPowerShell\Modules\$($Module.Name)\$($module.version)" -Force
             }
         } -ArgumentList $MissingModules,$ResolvedRemoteStagingPath
@@ -1058,7 +1066,7 @@ function Test-DscResourceFromModuleInFolderIsValid {
         [ValidateNotNullOrEmpty()]
         [System.io.DirectoryInfo]
         $ModuleFolder,
-        
+
         [Parameter(
             Mandatory,
             ValueFromPipelineByPropertyName,
@@ -1068,7 +1076,7 @@ function Test-DscResourceFromModuleInFolderIsValid {
         [AllowNull()]
         $Modules
     )
-    
+
     Process {
         Foreach ($module in $Modules) {
             $Resources = Get-DscResourceFromModuleInFolder -ModuleFolder $ModuleFolder `
