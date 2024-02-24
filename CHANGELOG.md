@@ -5,6 +5,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Build requires PowerShell 7 now.
+- Fixed build issues by adding pre-release of 'DscBuildHelpers'.
+
 ## [0.2.3] - 2023-09-05
 
 ### Added
