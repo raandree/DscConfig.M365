@@ -20,6 +20,7 @@
     'Sampler.GitHubTasks'                                  = 'latest'
     Datum                                                  = 'latest'
     'Datum.ProtectedData'                                  = 'latest'
+    ProtectedData                                          = 'latest'
     DscBuildHelpers                                        = 'latest'
     'DscResource.Test'                                     = 'latest'
     MarkdownLinkCheck                                      = 'latest'
