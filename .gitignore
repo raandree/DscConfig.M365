@@ -1,16 +1,13 @@
-output/
+!output/
+output/*
 
-**.bak
-*.local.*
-!**/README.md
-.kitchen/
+!output/RequiredModules
+output/RequiredModules/*
 
-*.suo
-*.user
-*.coverage
-.vs
-.psproj
-.sln
-markdownissues.txt
-node_modules
-package-lock.json
+!output/RequiredModules/ProtectedData
+output/RequiredModules/ProtectedData/*
+!output/RequiredModules/ProtectedData/4.2.0
+
+!output/RequiredModules/DscBuildHelpers
+output/RequiredModules/DscBuildHelpers/*
+!output/RequiredModules/DscBuildHelpers/0.3.0

@@ -1,4 +1,11 @@
 BeforeDiscovery {
+
+    if ($PSVersionTable.PSEdition -eq 'Desktop')
+    {
+        Write-Host 'Running on Windows PowerShell, removing PSDesiredStateConfiguration module from the required modules directory.'
+        Remove-Item $RequiredModulesDirectory\PSDesiredStateConfiguration -Recurse -Force -ErrorAction SilentlyContinue
+    }
+
     $dscResources = Get-DscResource -Module $moduleUnderTest.Name
     $here = $PSScriptRoot
 

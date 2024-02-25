@@ -1,4 +1,4 @@
-task Create_DSC_Resource_Yaml_File {
+task Create_Dsc_Resource_Yaml_File {
 
     if (-not $dscResources)
     {
