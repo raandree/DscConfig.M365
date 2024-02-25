@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed hard-coded resources.
 - Updated M365DSC to 1.23.830.1.
 - Added test data for 'cEXOAcceptedDomain'.
+- Added test data for 'cEXORemoteDomain'
 
 ## [0.2.2] - 2023-04-19
 
