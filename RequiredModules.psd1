@@ -8,7 +8,7 @@
         }
     }
 
-    'Microsoft365DSC'                                      = '1.24.221.1'
+    'Microsoft365DSC'                                      = '1.24.515.2'
 
     InvokeBuild                                            = 'latest'
     PSScriptAnalyzer                                       = 'latest'

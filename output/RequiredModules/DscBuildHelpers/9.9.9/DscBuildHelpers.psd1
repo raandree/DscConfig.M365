@@ -1,7 +1,7 @@
 @{
     RootModule        = 'DscBuildHelpers.psm1'
 
-    ModuleVersion     = '0.3.0'
+    ModuleVersion     = '9.9.9'
 
     GUID              = '23ccd4bf-0a52-4077-986f-c153893e5a6a'
 
@@ -38,7 +38,7 @@
             IconUri      = 'https://dsccommunity.org/images/DSC_Logo_300p.png'
 
             # ReleaseNotes of this module
-            ReleaseNotes = '## [0.2.0-fix0001] - 2024-02-24
+            ReleaseNotes = '## [0.2.0-fix0001] - 2024-03-24
 
 ### Added
 
