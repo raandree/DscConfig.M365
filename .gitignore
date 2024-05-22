@@ -4,6 +4,9 @@ output/*
 !output/RequiredModules
 output/RequiredModules/*
 
+source/DSCResources
+source/DSCResources.yml
+
 !output/RequiredModules/ProtectedData
 output/RequiredModules/ProtectedData/*
 !output/RequiredModules/ProtectedData/9.9.9

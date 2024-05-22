@@ -5,6 +5,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Excluding folder 'source/DSCResources' from git.
+- Updated these modules to latest version:
+  - ProtectedData
+  - DscBuildHelpers
+
+### Added
+
+- Added test data for:
+  - 'cEXOTransportRule'
+  - 'cEXODistributionGroup.yml'
+  - 'cAADAdministrativeUnit'
+
 ## [0.3.0] - 2024-02-25
 
 ### Changed
