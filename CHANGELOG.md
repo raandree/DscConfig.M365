@@ -16,9 +16,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Added test data for:
-  - 'cEXOTransportRule'
-  - 'cEXODistributionGroup.yml'
-  - 'cAADAdministrativeUnit'
+  - cEXOTransportRule
+  - cEXODistributionGroup
+  - cAADAdministrativeUnit
+  - cAADAuthenticationMethodPolicy
+  - cAADAuthenticationMethodPolicyAuthenticator
+  - cAADAuthenticationMethodPolicyEmail
+  - cAADAuthenticationMethodPolicyFido2
+  - cAADAuthenticationMethodPolicySms
+  - cAADAuthenticationMethodPolicySoftware
+  - cAADAuthenticationMethodPolicyTemporary
+  - cAADAuthenticationMethodPolicyVoice
+  - cAADAuthenticationMethodPolicyX509
+  - cAADAuthenticationStrengthPolicy
+  - cO365OrgSettings
 
 ## [0.3.0] - 2024-02-25
 
