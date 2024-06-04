@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - cSCDLPCompliancePolicy
   - cSCDLPComplianceRule
 
+### Changed
+
+- Updated build scripts to latest version of Sampler with support of ModuleFast.
+
 ## [0.3.1] - 2024-05-24
 
 ### Changed
@@ -39,6 +43,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - cAADAuthenticationMethodPolicyX509
   - cAADAuthenticationStrengthPolicy
   - cO365OrgSettings
+  - cSPOAccessControlSettings
+  - cSPOSharingSettings
+  - cSPOTenantSettings
 
 ## [0.3.0] - 2024-02-25
 
