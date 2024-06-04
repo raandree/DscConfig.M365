@@ -243,7 +243,6 @@ task Create_Dsc_Composite_Resources {
 
     foreach ($dscResourceModule in $dscResourceModules.GetEnumerator())
     {
-
         #Get syntax for all DSC Resources in the module. Getting them one by one is too slow.
         $dscResourceSyntax = Get-DscResource -Module $dscResourceModule.Name -Syntax
         $dscResourceSyntax | Add-Member -Name ResourceName -MemberType ScriptProperty -Value { ($this -split ' ')[0] }

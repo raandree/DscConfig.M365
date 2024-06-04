@@ -5,6 +5,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added test data for:
+  - cSCComplianceTag
+  - cSCDLPCompliancePolicy
+  - cSCDLPComplianceRule
+
 ### Changed
 
 - Updated build scripts to latest version of Sampler with support of ModuleFast.
