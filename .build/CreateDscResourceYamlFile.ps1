@@ -24,7 +24,7 @@ task Create_Dsc_Resource_Yaml_File {
 
     foreach ($item in $scalar)
     {
-        $compositeName = "c$($item.Name)" #Get-Name -Name $item.Name
+        $compositeName = "c$($item.Name)"
         $content.Microsoft365DSC.Add($item.Name,
             @{
                 CompositeResourceName = $compositeName
@@ -33,15 +33,13 @@ task Create_Dsc_Resource_Yaml_File {
     }
     foreach ($item in $array)
     {
-        $compositeName = "c$($item.Name)" #Get-Name -Name $item.Name
+        $compositeName = "c$($item.Name)"
         $content.Microsoft365DSC.Add($item.Name,
             @{
                 CompositeResourceName = $compositeName
                 ParameterType         = 'Array'
             })
     }
-
-    #$content.Microsoft365DSC | ft -Property Name, @{ Label = 'CompositeName'; Expression = { $_.Value.ParameterType } }
 
     $utf8NoBomEncoding = [System.Text.UTF8Encoding]::new($false)
     [System.IO.File]::WriteAllLines("$sourcePath\DSCResources.yml", ($content | ConvertTo-Yaml), $utf8NoBomEncoding)

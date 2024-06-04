@@ -5,6 +5,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added test data for:
+  - cSCComplianceTag
+  - cSCDLPCompliancePolicy
+  - cSCDLPComplianceRule
+
 ## [0.3.1] - 2024-05-24
 
 ### Changed
