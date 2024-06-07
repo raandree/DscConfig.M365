@@ -17,6 +17,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Updated build scripts to latest version of Sampler with support of ModuleFast.
+
+### Fixes
+
 - Tests
   - Explicitly add resource to test script to prevent checking for all resources every test.
 
