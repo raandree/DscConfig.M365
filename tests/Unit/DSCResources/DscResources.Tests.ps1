@@ -79,7 +79,7 @@ configuration TestConfig {
 }
 '@
 
-        $dscConfiguration = $dscConfiguration.Replace('#<importStatements>', "Import-DscResource -Module $($moduleUnderTest.Name)")
+        $dscConfiguration = $dscConfiguration.Replace('#<importStatements>', "Import-DscResource -ModuleName $($moduleUnderTest.Name) -Name $DscResourceName")
 
         $dscConfiguration = $dscConfiguration.Replace('<DscResourceName>', $dscResourceName)
         Invoke-Expression -Command $dscConfiguration
