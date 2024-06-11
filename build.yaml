@@ -39,7 +39,7 @@ BuildWorkflow:
     - test
 
   build:
-    - TestPowerShell7
+    - TestPowerShell5
     - Clean
     - Clean_Sources_Folder
     - Create_Dsc_Resource_Yaml_File

@@ -1,7 +1,7 @@
 task TestPowerShell5 {
     if ($PSVersionTable.PSEdition -ne 'Desktop')
     {
-        Write-Error 'The build script requires PowerShell 7+ to work.'
+        Write-Error 'The build script requires PowerShell 5 to work.'
     }
 }
 

@@ -5,6 +5,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Update build scripts and pipeline to use PowerShell5 which is required by Microsoft365Dsc
+
 ## [0.3.2] - 2024-06-04
 
 ### Added
