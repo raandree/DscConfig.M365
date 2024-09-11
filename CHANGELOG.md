@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Set 'Microsoft365DSC' version to 1.24.904.1.
 - Removed dependency to 'xDscResourceDesigner' in 'DscBuildHelpers'.
+- Build uses 'UseModuleFast' now in Azure pipelines.
+- Update GitVersion.Tool installation to version 5.* in Azure pipelines.
 
 ### Added
 
