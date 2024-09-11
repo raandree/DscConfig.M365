@@ -1,0 +1,12 @@
+Items:
+- Name: MyDisplayName
+  Description: MyDescription
+  Parent: contoso.com\MyProfileInformation
+  Ensure: Present
+- Name: MyDisplayName2
+  Description: MyDescription2
+  Parent: contoso.com\MyProfileInformation
+  Ensure: Present
+- Name: MyDisplayName3
+  Parent: contoso.com\MyProfileInformation
+  Ensure: Absent
