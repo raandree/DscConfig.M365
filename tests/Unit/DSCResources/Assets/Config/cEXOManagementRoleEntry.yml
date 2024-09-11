@@ -1,0 +1,6 @@
+Items:
+  Identity: Information Rights Management\Get-BookingMailbox
+  Parameters:
+  - ANR
+  - RecipientTypeDetails
+  - ResultSize
