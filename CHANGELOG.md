@@ -5,6 +5,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2024-09-11
+
 ### Changed
 
 - Set 'Microsoft365DSC' version to 1.24.904.1.
