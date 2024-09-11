@@ -5,6 +5,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Set 'Microsoft365DSC' version to 1.24.904.1.
+- Removed dependency to 'xDscResourceDesigner' in 'DscBuildHelpers'.
+
+### Added
+
+- Added test data for:
+  - cEXOInboundConnector
+  - cEXOOutboundConnector
+  - cEXOManagementRole
+  - cEXOManagementRoleAssignment
+  - cEXOManagementRoleEntry
+
+### Fixes
+
+- Fixed a bug in the code generator when there is no ensure property for a resource.
+
 ## [0.3.2] - 2024-06-04
 
 ### Added
