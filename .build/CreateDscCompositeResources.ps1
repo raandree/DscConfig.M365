@@ -215,10 +215,14 @@ function New-DscCompositeResourceCode
     {
         [void]$code.AppendLine('        foreach ($item in $Items)')
         [void]$code.AppendLine('        {')
-        [void]$code.AppendLine('            if (-not $item.ContainsKey(''Ensure''))')
-        [void]$code.AppendLine('            {')
-        [void]$code.AppendLine('                $item.Ensure = ''Present''')
-        [void]$code.AppendLine('            }')
+
+        if ($dscParameters.Where({ $_.Name -eq 'Ensure' }))
+        {
+            [void]$code.AppendLine('            if (-not $item.ContainsKey(''Ensure''))')
+            [void]$code.AppendLine('            {')
+            [void]$code.AppendLine('                $item.Ensure = ''Present''')
+            [void]$code.AppendLine('            }')
+        }
         [void]$code.AppendLine('            $keyValues = foreach ($key in $dscParameterKeys)')
         [void]$code.AppendLine('        {')
         [void]$code.AppendLine('            $item.$key')

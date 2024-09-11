@@ -1,5 +1,5 @@
 @{
-    PSDependOptions                                        = @{
+    PSDependOptions             = @{
         AddToPath  = $true
         Target     = 'output\RequiredModules'
         Parameters = @{
@@ -8,7 +8,7 @@
         }
     }
 
-    'Microsoft365DSC'                                      = '1.24.515.2'
+    'Microsoft365DSC'           = '1.24.904.1'
 
     InvokeBuild                                            = 'latest'
     PSScriptAnalyzer                                       = 'latest'

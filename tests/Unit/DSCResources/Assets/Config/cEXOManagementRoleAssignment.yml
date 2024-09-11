@@ -1,0 +1,13 @@
+Items:
+  - Name: MyManagementRoleAssignment1
+    Role: UserApplication
+    User: AdeleV@contoso.com
+    Ensure: Present
+  - Name: MyManagementRoleAssignment2
+    Role: UserApplication
+    User: AlexW@contoso.com # Updated Property
+    Ensure: Present
+  - Name: MyManagementRoleAssignment3
+    Role: UserApplication
+    User: AlexW@contoso.com # Updated Property
+    Ensure: Present
