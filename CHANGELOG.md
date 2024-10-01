@@ -8,6 +8,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Update build scripts and pipeline to use PowerShell5 which is required by Microsoft365Dsc
+- Updated 'Resolve-Dependency.ps1' to latest version of Sampler.
+
+## [0.4.0] - 2024-09-11
+
+### Changed
+
+- Set 'Microsoft365DSC' version to 1.24.904.1.
+- Removed dependency to 'xDscResourceDesigner' in 'DscBuildHelpers'.
+- Build uses 'UseModuleFast' now in Azure pipelines.
+- Update GitVersion.Tool installation to version 5.* in Azure pipelines.
+
+### Added
+
+- Added test data for:
+  - cEXOInboundConnector
+  - cEXOOutboundConnector
+  - cEXOManagementRole
+  - cEXOManagementRoleAssignment
+  - cEXOManagementRoleEntry
+
+### Fixes
+
+- Fixed a bug in the code generator when there is no ensure property for a resource.
 
 ## [0.3.2] - 2024-06-04
 
