@@ -8,12 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Updated 'Resolve-Dependency.ps1' to latest version of Sampler.
+- Update build scripts and pipeline to use PowerShell5 which is required by Microsoft365Dsc
 
 ## [0.4.0] - 2024-09-11
 
 ### Changed
 
-- Update build scripts and pipeline to use PowerShell5 which is required by Microsoft365Dsc
 - Set 'Microsoft365DSC' version to 1.24.904.1.
 - Removed dependency to 'xDscResourceDesigner' in 'DscBuildHelpers'.
 - Build uses 'UseModuleFast' now in Azure pipelines.
