@@ -1,0 +1,14 @@
+Items:
+  - DisplayName: "Wifi Configuration Android Device"
+    Assignments:
+      - deviceAndAppManagementAssignmentFilterType: "none"
+        dataType: "#microsoft.graph.allDevicesAssignmentTarget"
+    ConnectAutomatically: False
+    ConnectWhenNetworkNameIsHidden: True
+    NetworkName: "b71f8c63-8140-4c7e-b818-f9b4aa98b79b"
+    Ssid: "sf"
+    WiFiSecurityType: "wpaEnterprise"
+    Ensure: "Present"
+    ApplicationId: $ApplicationId
+    TenantId: $TenantId
+    CertificateThumbprint: $CertificateThumbprint

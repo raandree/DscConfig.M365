@@ -1,0 +1,17 @@
+Items:
+  - DisplayName: "test"
+    AllowDeferralUntilSignOut: true
+    Assignments: []
+    Description: "test"
+    Enabled: true
+    Ensure: "Present"
+    NumberOfTimesUserCanIgnore: -1
+    PersonalRecoveryKeyHelpMessage: "eeee"
+    PersonalRecoveryKeyRotationInMonths: 2
+    RoleScopeTagIds:
+      - "0"
+    SelectedRecoveryKeyTypes:
+      - "personalRecoveryKey"
+    ApplicationId: $ApplicationId
+    TenantId: $TenantId
+    CertificateThumbprint: $CertificateThumbprint

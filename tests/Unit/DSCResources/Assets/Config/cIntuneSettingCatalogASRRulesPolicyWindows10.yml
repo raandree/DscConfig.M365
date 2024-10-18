@@ -1,0 +1,16 @@
+Items:
+  - DisplayName: "asr 2"
+    Assignments:
+      - deviceAndAppManagementAssignmentFilterType: "none"
+        dataType: "#microsoft.graph.allLicensedUsersAssignmentTarget"
+    attacksurfacereductiononlyexclusions:
+      - "Test 10"
+      - "Test2"
+      - "Test3"
+    blockabuseofexploitedvulnerablesigneddrivers: "block"
+    blockexecutablefilesrunningunlesstheymeetprevalenceagetrustedlistcriterion: "audit"
+    Description: "Post"
+    Ensure: "Present"
+    ApplicationId: $ApplicationId
+    TenantId: $TenantId
+    CertificateThumbprint: $CertificateThumbprint

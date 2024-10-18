@@ -1,0 +1,16 @@
+Items:
+  - DisplayName: "macos wifi"
+    Assignments:
+      - deviceAndAppManagementAssignmentFilterType: "none"
+        dataType: "#microsoft.graph.allDevicesAssignmentTarget"
+    ConnectAutomatically: True
+    ConnectWhenNetworkNameIsHidden: True
+    NetworkName: "ea1cf5d7-8d3e-40ca-9cb8-b8c8a4c6170b"
+    ProxyAutomaticConfigurationUrl: "AZ500PrivateEndpoint22"
+    ProxySettings: "automatic"
+    Ssid: "aaaaaaaaaaaaa"
+    WiFiSecurityType: "wpaPersonal"
+    Ensure: "Present"
+    ApplicationId: $ApplicationId
+    TenantId: $TenantId
+    CertificateThumbprint: $CertificateThumbprint

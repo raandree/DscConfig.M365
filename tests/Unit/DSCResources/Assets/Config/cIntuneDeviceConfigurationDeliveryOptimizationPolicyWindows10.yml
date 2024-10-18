@@ -1,0 +1,35 @@
+Items:
+  - DisplayName: "delivery optimisation"
+    Assignments:
+      - deviceAndAppManagementAssignmentFilterType: "none"
+        dataType: "#microsoft.graph.allLicensedUsersAssignmentTarget"
+    BackgroundDownloadFromHttpDelayInSeconds: 4
+    BandwidthMode:
+      MaximumDownloadBandwidthInKilobytesPerSecond: 22
+      MaximumUploadBandwidthInKilobytesPerSecond: 33
+      odataType: "#microsoft.graph.deliveryOptimizationBandwidthAbsolute"
+    CacheServerBackgroundDownloadFallbackToHttpDelayInSeconds: 3
+    CacheServerForegroundDownloadFallbackToHttpDelayInSeconds: 3
+    CacheServerHostNames:
+      - "domain.com"
+    DeliveryOptimizationMode: "httpWithPeeringPrivateGroup"
+    Ensure: "Present"
+    ForegroundDownloadFromHttpDelayInSeconds: 234
+    GroupIdSource:
+      GroupIdSourceOption: "adSite"
+      odataType: "#microsoft.graph.deliveryOptimizationGroupIdSourceOptions"
+    MaximumCacheAgeInDays: 3
+    MaximumCacheSize:
+      MaximumCacheSizeInGigabytes: 4
+      odataType: "#microsoft.graph.deliveryOptimizationMaxCacheSizeAbsolute"
+    MinimumBatteryPercentageAllowedToUpload: 4
+    MinimumDiskSizeAllowedToPeerInGigabytes: 3
+    MinimumFileSizeToCacheInMegabytes: 3
+    MinimumRamAllowedToPeerInGigabytes: 3
+    ModifyCacheLocation: "%systemdrive%"
+    RestrictPeerSelectionBy: "subnetMask"
+    SupportsScopeTags: True
+    VpnPeerCaching: "enabled"
+    ApplicationId: $ApplicationId
+    TenantId: $TenantId
+    CertificateThumbprint: $CertificateThumbprint

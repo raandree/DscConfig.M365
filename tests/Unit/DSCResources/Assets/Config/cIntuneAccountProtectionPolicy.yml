@@ -1,0 +1,10 @@
+items:
+  - DisplayName: "test"
+    deviceGuardLocalSystemAuthorityCredentialGuardSettings: "notConfigured"
+    WindowsHelloForBusinessBlocked: false
+    PinMinimumLength: 1
+    PinSpecialCharactersUsage: "required"
+    Ensure: "Present"
+    ApplicationId: $ApplicationId
+    TenantId: $TenantId
+    CertificateThumbprint: $CertificateThumbprint

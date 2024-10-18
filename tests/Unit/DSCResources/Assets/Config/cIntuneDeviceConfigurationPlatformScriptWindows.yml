@@ -1,0 +1,15 @@
+Items:
+  - DisplayName: "custom"
+    Assignments:
+      - deviceAndAppManagementAssignmentFilterType: 'none'
+        dataType: '#microsoft.graph.allDevicesAssignmentTarget'
+    Ensure: "Present"
+    EnforceSignatureCheck: false
+    FileName: "script.ps1"
+    Id: "00000000-0000-0000-0000-000000000000"
+    RunAs32Bit: true
+    RunAsAccount: "system"
+    ScriptContent: "Base64 encoded script content"
+    ApplicationId: $ApplicationId
+    TenantId: $TenantId
+    CertificateThumbprint: $CertificateThumbprint

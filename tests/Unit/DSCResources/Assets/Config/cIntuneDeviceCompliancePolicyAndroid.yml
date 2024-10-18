@@ -1,0 +1,26 @@
+Items:
+  - DisplayName: 'Test Policy'
+    Description: ''
+    DeviceThreatProtectionEnabled: false
+    DeviceThreatProtectionRequiredSecurityLevel: 'unavailable'
+    osMinimumVersion: '7'
+    PasswordExpirationDays: 90
+    PasswordMinimumLength: 6
+    PasswordMinutesOfInactivityBeforeLock: 5
+    PasswordPreviousPasswordBlockCount: 10
+    PasswordRequired: true
+    PasswordRequiredType: 'deviceDefault'
+    SecurityBlockJailbrokenDevices: false
+    SecurityDisableUsbDebugging: false
+    SecurityPreventInstallAppsFromUnknownSources: false
+    SecurityRequireCompanyPortalAppIntegrity: false
+    SecurityRequireGooglePlayServices: false
+    SecurityRequireSafetyNetAttestationBasicIntegrity: false
+    SecurityRequireSafetyNetAttestationCertifiedDevice: false
+    SecurityRequireUpToDateSecurityProviders: false
+    SecurityRequireVerifyApps: false
+    StorageRequireEncryption: true
+    Ensure: 'Present'
+    ApplicationId: $ApplicationId
+    TenantId: $TenantId
+    CertificateThumbprint: $CertificateThumbprint
