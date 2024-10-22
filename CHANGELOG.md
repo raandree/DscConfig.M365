@@ -5,6 +5,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Teams Resources. This was initially created from M365DSC 1.24.515.2.
+
 ### Changed
 
 - Updated 'Resolve-Dependency.ps1' to latest version of Sampler.
