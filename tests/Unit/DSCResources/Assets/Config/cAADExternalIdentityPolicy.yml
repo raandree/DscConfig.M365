@@ -1,0 +1,6 @@
+AllowDeletedIdentitiesDataRemoval: false
+AllowExternalIdentitiesToLeave: true
+ApplicationId: $ApplicationId
+TenantId: $TenantId
+CertificateThumbprint: $CertificateThumbprint
+IsSingleInstance: "Yes"
