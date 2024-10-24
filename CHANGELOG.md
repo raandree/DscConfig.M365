@@ -7,6 +7,64 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+## [0.4.1] - 2024-09-11
+
+### Added
+- Added test data for:
+  - cIntuneAccountProtectionLocalAdministratorPasswordSolutionPolicy
+  - cIntuneAccountProtectionLocalUserGroupMembershipPolicy
+  - cIntuneAccountProtectionPolicy
+  - cIntuneAntivirusPolicyWindows10SettingCatalog
+  - cIntuneAppConfigurationDevicePolicy
+  - cIntuneAppConfigurationPolicy
+  - cIntuneApplicationControlPolicyWindows10
+  - cIntuneAppProtectionPolicyAndroid
+  - cIntuneAppProtectionPolicyiOS
+  - cIntuneDeviceAndAppManagementAssignmentFilter
+  - cIntuneDeviceCategory
+  - cIntuneDeviceCleanupRule
+  - cIntuneDeviceCompliancePolicyAndroid
+  - cIntuneDeviceCompliancePolicyAndroidDeviceOwner
+  - cIntuneDeviceCompliancePolicyAndroidWorkProfile
+  - cIntuneDeviceCompliancePolicyiOs
+  - cIntuneDeviceCompliancePolicyMacOS
+  - cIntuneDeviceCompliancePolicyWindows10
+  - cIntuneDeviceConfigurationAdministrativeTemplatePolicyWindows10
+  - cIntuneDeviceConfigurationCustomPolicyWindows10
+  - cIntuneDeviceConfigurationDefenderForEndpointOnboardingPolicyWindows10
+  - cIntuneDeviceConfigurationDeliveryOptimizationPolicyWindows10
+  - cIntuneDeviceConfigurationDomainJoinPolicyWindows10
+  - cIntuneDeviceConfigurationEditionUpgradePolicyWindows10
+  - cIntuneDeviceConfigurationIdentityProtectionPolicyWindows10
+  - cIntuneDeviceConfigurationImportedPfxCertificatePolicyWindows10
+  - cIntuneDeviceConfigurationPlatformScriptWindows
+  - cIntuneDeviceConfigurationPolicyAndroidDeviceAdministrator
+  - cIntuneDeviceConfigurationPolicyAndroidDeviceOwner
+  - cIntuneDeviceConfigurationPolicyAndroidWorkProfile
+  - cIntuneDeviceConfigurationPolicyIOS
+  - cIntuneDeviceConfigurationPolicyMacOS
+  - cIntuneDeviceConfigurationPolicyWindows10
+  - cIntuneDeviceConfigurationSecureAssessmentPolicyWindows10
+  - cIntuneDeviceConfigurationSharedMultiDevicePolicyWindows10
+  - cIntuneDeviceConfigurationWiredNetworkPolicyWindows10
+  - cIntuneDeviceEnrollmentLimitRestriction
+  - cIntuneDeviceEnrollmentPlatformRestriction
+  - cIntuneDeviceEnrollmentStatusPageWindows10
+  - cIntuneDiskEncryptionMacOS
+  - cIntuneDiskEncryptionWindows10
+  - cIntuneEndpointDetectionAndResponsePolicyWindows10
+  - cIntuneExploitProtectionPolicyWindows10SettingCatalog
+  - cIntunePolicySets
+  - cIntuneRoleAssignment
+  - cIntuneSettingCatalogASRRulesPolicyWindows10
+  - cIntuneSettingCatalogCustomPolicyWindows10
+  - cIntuneWifiConfigurationPolicyAndroidDeviceAdministrator
+  - cIntuneWifiConfigurationPolicyMacOS
+  - cIntuneWifiConfigurationPolicyWindows10
+  - cIntuneWindowsInformationProtectionPolicyWindows10MdmEnrolled
+  - cIntuneWindowsUpdateForBusinessFeatureUpdateProfileWindows10
+  - cIntuneWindowsUpdateForBusinessRingUpdateProfileWindows10
+
 - Updated 'Resolve-Dependency.ps1' to latest version of Sampler.
 
 ## [0.4.0] - 2024-09-11
