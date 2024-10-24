@@ -5,6 +5,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.3] - 2024-10-24
+
+### Added
+
+- Added test data for:
+  - SCRetentionCompliancePolicy
+  - SCRetentionComplianceRule
+  - SCRoleGroup
+  - SCAutoSensitivityLabelPolicy
+  - SCRoleGroupMember
+  - SCDeviceConditionalAccessPolicy
+  - SCDeviceConfigurationPolicy
+  - SCProtectionAlert
+  - SCSecurityFilter
+  - SCAuditConfigurationPolicy
+  - SCAutoSensitivityLabelRule
+  - SCFilePlanPropertyAuthority
+  - SCFilePlanPropertyCategory
+  - SCFilePlanPropertyCitation
+  - SCFilePlanPropertyDepartment
+  - SCFilePlanPropertyReferenceId
+  - SCFilePlanPropertySubCategory
+  - SCRetentionEventType
+  - SCSupervisoryReviewPolicy
+  - SCSupervisoryReviewRule
+
 ### Changed
 
 - Updated 'Resolve-Dependency.ps1' to latest version of Sampler.
