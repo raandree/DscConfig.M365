@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Updated 'Resolve-Dependency.ps1' to latest version of Sampler.
+
+### Added
+
+- Added test data for:
+  - cAADCrossTenantAccessPolicy
+
+## [0.4.0] - 2024-09-11
+
+### Changed
+
 - Set 'Microsoft365DSC' version to 1.24.904.1.
 - Removed dependency to 'xDscResourceDesigner' in 'DscBuildHelpers'.
 - Build uses 'UseModuleFast' now in Azure pipelines.
