@@ -1,0 +1,26 @@
+Items:
+  - DisplayName: 'Android Work Profile - Device Restrictions - Standard'
+    PasswordBlockFingerprintUnlock: false
+    PasswordBlockTrustAgents: false
+    PasswordMinimumLength: 6
+    PasswordMinutesOfInactivityBeforeScreenTimeout: 15
+    PasswordRequiredType: 'atLeastNumeric'
+    SecurityRequireVerifyApps: true
+    WorkProfileBlockAddingAccounts: true
+    WorkProfileBlockCamera: false
+    WorkProfileBlockCrossProfileCallerId: false
+    WorkProfileBlockCrossProfileContactsSearch: false
+    WorkProfileBlockCrossProfileCopyPaste: true
+    WorkProfileBlockNotificationsWhileDeviceLocked: true
+    WorkProfileBlockScreenCapture: true
+    WorkProfileBluetoothEnableContactSharing: false
+    WorkProfileDataSharingType: 'allowPersonalToWork'
+    WorkProfileDefaultAppPermissionPolicy: 'deviceDefault'
+    WorkProfilePasswordBlockFingerprintUnlock: false
+    WorkProfilePasswordBlockTrustAgents: false
+    WorkProfilePasswordRequiredType: 'deviceDefault'
+    WorkProfileRequirePassword: false
+    Ensure: 'Present'
+    ApplicationId: $ApplicationId
+    TenantId: $TenantId
+    CertificateThumbprint: $CertificateThumbprint

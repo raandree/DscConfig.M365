@@ -1,0 +1,8 @@
+Items:
+  - DisplayName: "My DSC Limit"
+    Description: "My Restriction"
+    Limit: 12
+    Ensure: "Present"
+    ApplicationId: $ApplicationId
+    TenantId: $TenantId
+    CertificateThumbprint: $CertificateThumbprint

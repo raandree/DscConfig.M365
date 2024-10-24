@@ -1,0 +1,14 @@
+Items:
+  - DisplayName: "Edition upgrade and mode switch - update"
+    Assignments:
+      - deviceAndAppManagementAssignmentFilterType: "none"
+        dataType: "#microsoft.graph.allDevicesAssignmentTarget"
+    Credential: $Credscredential
+    Description: ""
+    Ensure: "Present"
+    Id: "3e4222e0-c172-4081-bf9a-2e17ddfc34ca"
+    License: ""
+    LicenseType: "productKey"
+    ProductKey: "#####-#####-#####-#####-#2345"
+    TargetEdition: "windows10Professional"
+    WindowsSMode: "block"

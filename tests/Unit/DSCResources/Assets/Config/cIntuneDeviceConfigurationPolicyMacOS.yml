@@ -1,0 +1,90 @@
+Items:
+  - DisplayName: 'MacOS device restriction'
+    AddingGameCenterFriendsBlocked: true
+    AirDropBlocked: false
+    AppleWatchBlockAutoUnlock: false
+    Assignments:
+      - deviceAndAppManagementAssignmentFilterType: 'none'
+        dataType: '#microsoft.graph.groupAssignmentTarget'
+        groupId: 'e8cbd84d-be6a-4b72-87f0-0e677541fda0'
+      - deviceAndAppManagementAssignmentFilterType: 'none'
+        dataType: '#microsoft.graph.groupAssignmentTarget'
+        groupId: 'ea9199b8-3e6e-407b-afdc-e0943e0d3c20'
+    CameraBlocked: false
+    ClassroomAppBlockRemoteScreenObservation: false
+    ClassroomAppForceUnpromptedScreenObservation: false
+    ClassroomForceAutomaticallyJoinClasses: false
+    ClassroomForceRequestPermissionToLeaveClasses: false
+    ClassroomForceUnpromptedAppAndDeviceLock: false
+    CompliantAppListType: 'appsNotInListCompliant'
+    CompliantAppsList:
+      - name: 'appname2'
+        publisher: 'publisher'
+        appId: 'bundle'
+    ContentCachingBlocked: false
+    DefinitionLookupBlocked: true
+    EmailInDomainSuffixes: []
+    EraseContentAndSettingsBlocked: false
+    GameCenterBlocked: false
+    ICloudBlockActivityContinuation: false
+    ICloudBlockAddressBook: false
+    ICloudBlockBookmarks: false
+    ICloudBlockCalendar: false
+    ICloudBlockDocumentSync: false
+    ICloudBlockMail: false
+    ICloudBlockNotes: false
+    ICloudBlockPhotoLibrary: false
+    ICloudBlockReminders: false
+    ICloudDesktopAndDocumentsBlocked: false
+    ICloudPrivateRelayBlocked: false
+    ITunesBlockFileSharing: false
+    ITunesBlockMusicService: false
+    KeyboardBlockDictation: false
+    KeychainBlockCloudSync: false
+    MultiplayerGamingBlocked: false
+    PasswordBlockAirDropSharing: false
+    PasswordBlockAutoFill: false
+    PasswordBlockFingerprintUnlock: false
+    PasswordBlockModification: false
+    PasswordBlockProximityRequests: false
+    PasswordBlockSimple: false
+    PasswordRequired: false
+    PasswordRequiredType: 'deviceDefault'
+    PrivacyAccessControls:
+      - displayName: 'test'
+        identifier: 'test45'
+        identifierType: 'path'
+        codeRequirement: 'test'
+        blockCamera: true
+        speechRecognition: 'notConfigured'
+        accessibility: 'notConfigured'
+        addressBook: 'enabled'
+        calendar: 'notConfigured'
+        reminders: 'notConfigured'
+        photos: 'notConfigured'
+        mediaLibrary: 'notConfigured'
+        fileProviderPresence: 'notConfigured'
+        systemPolicyAllFiles: 'notConfigured'
+        systemPolicySystemAdminFiles: 'notConfigured'
+        systemPolicyDesktopFolder: 'notConfigured'
+        systemPolicyDocumentsFolder: 'notConfigured'
+        systemPolicyDownloadsFolder: 'notConfigured'
+        systemPolicyNetworkVolumes: 'notConfigured'
+        systemPolicyRemovableVolumes: 'notConfigured'
+        postEvent: 'notConfigured'
+    SafariBlockAutofill: false
+    ScreenCaptureBlocked: false
+    SoftwareUpdateMajorOSDeferredInstallDelayInDays: 30
+    SoftwareUpdateMinorOSDeferredInstallDelayInDays: 30
+    SoftwareUpdateNonOSDeferredInstallDelayInDays: 30
+    SoftwareUpdatesEnforcedDelayInDays: 30
+    SpotlightBlockInternetResults: false
+    UpdateDelayPolicy:
+      - 'delayOSUpdateVisibility'
+      - 'delayAppUpdateVisibility'
+      - 'delayMajorOsUpdateVisibility'
+    WallpaperModificationBlocked: false
+    Ensure: 'Present'
+    ApplicationId: $ApplicationId
+    TenantId: $TenantId
+    CertificateThumbprint: $CertificateThumbprint

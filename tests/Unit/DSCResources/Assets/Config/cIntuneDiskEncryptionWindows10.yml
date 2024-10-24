@@ -1,0 +1,13 @@
+Items:
+  - DisplayName: 'Disk Encryption'
+    Assignments:
+      - deviceAndAppManagementAssignmentFilterType: 'none'
+        dataType: '#microsoft.graph.allDevicesAssignmentTarget'
+    Description: ''
+    IdentificationField_Name: '1'
+    IdentificationField: 'IdentificationField'
+    SecIdentificationField: 'SecIdentificationField'
+    Ensure: 'Present'
+    ApplicationId: $ApplicationId
+    TenantId: $TenantId
+    CertificateThumbprint: $CertificateThumbprint

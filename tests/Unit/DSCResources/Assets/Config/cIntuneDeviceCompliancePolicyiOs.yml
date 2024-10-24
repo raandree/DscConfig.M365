@@ -1,0 +1,21 @@
+Items:
+  - DisplayName: 'Test iOS Device Compliance Policy'
+    Description: 'Test iOS Device Compliance Policy Description'
+    PasscodeBlockSimple: true
+    PasscodeExpirationDays: 365
+    PasscodeMinimumLength: 6
+    PasscodeMinutesOfInactivityBeforeLock: 5
+    PasscodePreviousPasscodeBlockCount: 3
+    PasscodeMinimumCharacterSetCount: 2
+    PasscodeRequiredType: 'numeric'
+    PasscodeRequired: true
+    OsMinimumVersion: 10
+    OsMaximumVersion: 12
+    SecurityBlockJailbrokenDevices: true
+    DeviceThreatProtectionEnabled: true
+    DeviceThreatProtectionRequiredSecurityLevel: 'medium'
+    ManagedEmailProfileRequired: true
+    Ensure: 'Present'
+    ApplicationId: $ApplicationId
+    TenantId: $TenantId
+    CertificateThumbprint: $CertificateThumbprint

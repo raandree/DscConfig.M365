@@ -1,0 +1,19 @@
+Items:
+  - DisplayName: "win10 wifi - revised"
+    Assignments:
+      - deviceAndAppManagementAssignmentFilterType: "none"
+        dataType: "#microsoft.graph.allDevicesAssignmentTarget"
+    ConnectAutomatically: True
+    ConnectToPreferredNetwork: True
+    ConnectWhenNetworkNameIsHidden: True
+    ForceFIPSCompliance: True
+    MeteredConnectionLimit: "fixed"
+    NetworkName: "MyWifi"
+    ProxyAutomaticConfigurationUrl: "https://proxy.contoso.com"
+    ProxySetting: "automatic"
+    Ssid: "ssid"
+    WifiSecurityType: "wpa2Personal"
+    Ensure: "Present"
+    ApplicationId: $ApplicationId
+    TenantId: $TenantId
+    CertificateThumbprint: $CertificateThumbprint

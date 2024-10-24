@@ -1,0 +1,21 @@
+Items:
+  - DisplayName: 'DeviceOwner'
+    Description: ''
+    DeviceThreatProtectionEnabled: false
+    DeviceThreatProtectionRequiredSecurityLevel: 'unavailable'
+    AdvancedThreatProtectionRequiredSecurityLevel: 'unavailable'
+    SecurityRequireSafetyNetAttestationBasicIntegrity: false
+    SecurityRequireSafetyNetAttestationCertifiedDevice: false
+    OsMinimumVersion: '10'
+    OsMaximumVersion: '11'
+    PasswordRequired: true
+    PasswordMinimumLength: 6
+    PasswordRequiredType: 'numericComplex'
+    PasswordMinutesOfInactivityBeforeLock: 5
+    PasswordExpirationDays: 90
+    PasswordPreviousPasswordCountToBlock: 13
+    StorageRequireEncryption: true
+    Ensure: 'Present'
+    ApplicationId: $ApplicationId
+    TenantId: $TenantId
+    CertificateThumbprint: $CertificateThumbprint

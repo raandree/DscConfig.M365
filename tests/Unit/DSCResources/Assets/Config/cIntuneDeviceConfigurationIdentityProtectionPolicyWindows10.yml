@@ -1,0 +1,24 @@
+Items:
+  - DisplayName: "identity protection"
+    Assignments:
+      - deviceAndAppManagementAssignmentFilterType: 'none'
+        dataType: '#microsoft.graph.allLicensedUsersAssignmentTarget'
+    EnhancedAntiSpoofingForFacialFeaturesEnabled: true
+    Ensure: "Present"
+    PinExpirationInDays: 5
+    PinLowercaseCharactersUsage: "allowed"
+    PinMaximumLength: 4
+    PinMinimumLength: 4
+    PinPreviousBlockCount: 3
+    PinRecoveryEnabled: true
+    PinSpecialCharactersUsage: "allowed"
+    PinUppercaseCharactersUsage: "allowed"
+    SecurityDeviceRequired: true
+    SupportsScopeTags: true
+    UnlockWithBiometricsEnabled: true
+    UseCertificatesForOnPremisesAuthEnabled: true
+    UseSecurityKeyForSignin: true
+    WindowsHelloForBusinessBlocked: false
+    ApplicationId: $ApplicationId
+    TenantId: $TenantId
+    CertificateThumbprint: $CertificateThumbprint

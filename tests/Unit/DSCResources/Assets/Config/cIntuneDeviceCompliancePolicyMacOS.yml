@@ -1,0 +1,24 @@
+Items:
+  - DisplayName: 'MacOS DSC Policy'
+    Description: 'Test policy'
+    PasswordRequired: false
+    PasswordBlockSimple: false
+    PasswordExpirationDays: 365
+    PasswordMinimumLength: 6
+    PasswordMinutesOfInactivityBeforeLock: 5
+    PasswordPreviousPasswordBlockCount: 13
+    PasswordMinimumCharacterSetCount: 1
+    PasswordRequiredType: 'DeviceDefault'
+    OsMinimumVersion: 10
+    OsMaximumVersion: 13
+    SystemIntegrityProtectionEnabled: false
+    DeviceThreatProtectionEnabled: false
+    DeviceThreatProtectionRequiredSecurityLevel: 'Unavailable'
+    StorageRequireEncryption: false
+    FirewallEnabled: false
+    FirewallBlockAllIncoming: false
+    FirewallEnableStealthMode: false
+    Ensure: 'Present'
+    ApplicationId: $ApplicationId
+    TenantId: $TenantId
+    CertificateThumbprint: $CertificateThumbprint

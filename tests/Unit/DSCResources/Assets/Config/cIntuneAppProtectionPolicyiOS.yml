@@ -1,0 +1,33 @@
+Items:
+  - DisplayName: 'My DSC iOS App Protection Policy'
+    AllowedDataStorageLocations:
+      - 'sharePoint'
+    AllowedInboundDataTransferSources: 'managedApps'
+    AllowedOutboundClipboardSharingLevel: 'managedAppsWithPasteIn'
+    AllowedOutboundDataTransferDestinations: 'managedApps'
+    AppDataEncryptionType: 'whenDeviceLocked'
+    Apps:
+      - 'com.cisco.jabberimintune.ios'
+      - 'com.pervasent.boardpapers.ios'
+      - 'com.sharefile.mobile.intune.ios'
+    ContactSyncBlocked: false
+    DataBackupBlocked: false
+    Description: ''
+    DeviceComplianceRequired: true
+    FingerprintBlocked: false
+    ManagedBrowserToOpenLinksRequired: true
+    MaximumPinRetries: 7
+    MinimumPinLength: 4
+    OrganizationalCredentialsRequired: false
+    PeriodOfflineBeforeAccessCheck: 'PT12H'
+    PeriodOfflineBeforeWipeIsEnforced: 'P90D'
+    PeriodOnlineBeforeAccessCheck: 'PT30M'
+    PinCharacterSet: 'alphanumericAndSymbol'
+    PinRequired: true
+    PrintBlocked: false
+    SaveAsBlocked: true
+    SimplePinBlocked: false
+    Ensure: 'Present'
+    ApplicationId: $ApplicationId
+    TenantId: $TenantId
+    CertificateThumbprint: $CertificateThumbprint

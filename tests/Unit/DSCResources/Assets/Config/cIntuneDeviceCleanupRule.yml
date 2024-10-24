@@ -1,0 +1,7 @@
+Enabled: true
+IsSingleInstance: "Yes"
+DeviceInactivityBeforeRetirementInDays: 25 # Updated Property
+Ensure: "Present"
+ApplicationId: $ApplicationId
+TenantId: $TenantId
+CertificateThumbprint: $CertificateThumbprint

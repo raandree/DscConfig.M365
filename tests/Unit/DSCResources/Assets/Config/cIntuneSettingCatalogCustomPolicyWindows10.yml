@@ -1,0 +1,44 @@
+Items:
+  - Name: "Setting Catalog Raw - DSC"
+    Assignments:
+      - deviceAndAppManagementAssignmentFilterType: "none"
+        dataType: "#microsoft.graph.allDevicesAssignmentTarget"
+    Description: ""
+    Ensure: "Present"
+    Platforms: "windows10"
+    Settings:
+      - SettingInstance:
+          choiceSettingValue:
+            Value: "device_vendor_msft_policy_config_abovelock_allowcortanaabovelock_1"
+          SettingDefinitionId: "device_vendor_msft_policy_config_abovelock_allowcortanaabovelock"
+          odataType: "#microsoft.graph.deviceManagementConfigurationChoiceSettingInstance"
+      - SettingInstance:
+          SettingDefinitionId: "device_vendor_msft_policy_config_applicationdefaults_defaultassociationsconfiguration"
+          simpleSettingValue:
+            odataType: "#microsoft.graph.deviceManagementConfigurationStringSettingValue"
+            StringValue: ""
+          odataType: "#microsoft.graph.deviceManagementConfigurationSimpleSettingInstance"
+      - SettingInstance:
+          choiceSettingValue:
+            Value: "device_vendor_msft_policy_config_applicationdefaults_enableappurihandlers_1"
+          SettingDefinitionId: "device_vendor_msft_policy_config_applicationdefaults_enableappurihandlers"
+          odataType: "#microsoft.graph.deviceManagementConfigurationChoiceSettingInstance"
+      - SettingInstance:
+          choiceSettingValue:
+            Value: "device_vendor_msft_policy_config_defender_allowarchivescanning_1"
+          SettingDefinitionId: "device_vendor_msft_policy_config_defender_allowarchivescanning"
+          odataType: "#microsoft.graph.deviceManagementConfigurationChoiceSettingInstance"
+      - SettingInstance:
+          choiceSettingValue:
+            Value: "device_vendor_msft_policy_config_defender_allowbehaviormonitoring_1"
+          SettingDefinitionId: "device_vendor_msft_policy_config_defender_allowbehaviormonitoring"
+          odataType: "#microsoft.graph.deviceManagementConfigurationChoiceSettingInstance"
+      - SettingInstance:
+          choiceSettingValue:
+            Value: "device_vendor_msft_policy_config_defender_allowcloudprotection_1"
+          SettingDefinitionId: "device_vendor_msft_policy_config_defender_allowcloudprotection"
+          odataType: "#microsoft.graph.deviceManagementConfigurationChoiceSettingInstance"
+    Technologies: "mdm"
+    ApplicationId: $ApplicationId
+    TenantId: $TenantId
+    CertificateThumbprint: $CertificateThumbprint

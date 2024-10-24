@@ -1,0 +1,16 @@
+Items:
+  - DisplayName: "PKCS Imported"
+    Assignments:
+      - deviceAndAppManagementAssignmentFilterType: 'none'
+        dataType: '#microsoft.graph.allLicensedUsersAssignmentTarget'
+    CertificateValidityPeriodScale: "years"
+    CertificateValidityPeriodValue: 1
+    Ensure: "Present"
+    IntendedPurpose: "unassigned"
+    KeyStorageProvider: "useSoftwareKsp"
+    RenewalThresholdPercentage: 50
+    SubjectAlternativeNameType: "emailAddress"
+    SubjectNameFormat: "commonName"
+    ApplicationId: $ApplicationId
+    TenantId: $TenantId
+    CertificateThumbprint: $CertificateThumbprint

@@ -1,0 +1,14 @@
+Items:
+  - DisplayName: 'ContosoNew'
+    Description: 'New Contoso Policy'
+    CustomSettings:
+      - name: 'com.microsoft.intune.mam.managedbrowser.BlockListURLs'
+        value: 'https://www.aol.com'
+      - name: 'com.microsoft.intune.mam.managedbrowser.bookmarks'
+        value: 'Outlook Web|https://outlook.office.com||Bing|https://www.bing.com'
+      - name: 'Test2'
+        value: 'TestValue2'
+    Ensure: 'Present'
+    ApplicationId: $ApplicationId
+    TenantId: $TenantId
+    CertificateThumbprint: $CertificateThumbprint

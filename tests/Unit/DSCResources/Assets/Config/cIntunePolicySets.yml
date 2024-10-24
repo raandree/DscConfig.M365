@@ -1,0 +1,24 @@
+Items:
+  - DisplayName: "Example"
+    Assignments:
+      - deviceAndAppManagementAssignmentFilterType: 'none'
+        dataType: '#microsoft.graph.groupAssignmentTarget'
+        groupId: '12345678-1234-1234-1234-1234567890ab'
+      - deviceAndAppManagementAssignmentFilterType: 'none'
+        dataType: '#microsoft.graph.exclusionGroupAssignmentTarget'
+        groupId: '12345678-4321-4321-4321-1234567890ab'
+    Description: "Example"
+    Ensure: "Present"
+    GuidedDeploymentTags: []
+    Items:
+      - guidedDeploymentTags: []
+        payloadId: 'T_12345678-90ab-90ab-90ab-1234567890ab'
+        displayName: 'Example-Policy'
+        dataType: '#microsoft.graph.managedAppProtectionPolicySetItem'
+        itemType: '#microsoft.graph.androidManagedAppProtection'
+    RoleScopeTags:
+      - "0"
+      - "1"
+    ApplicationId: $ApplicationId
+    TenantId: $TenantId
+    CertificateThumbprint: $CertificateThumbprint

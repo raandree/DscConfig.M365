@@ -1,0 +1,7 @@
+Items:
+  - DisplayName: "Contoso"
+    Description: "Contoso Category"
+    Ensure: "Present"
+    ApplicationId: $ApplicationId
+    TenantId: $TenantId
+    CertificateThumbprint: $CertificateThumbprint
