@@ -7,13 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Teams Resources. This was initially created from M365DSC 1.24.515.2.
+- Teams Resources. This was initially created from Microsoft365DSC 1.24.515.2.
 - Added test data for:
   - cAADCrossTenantAccessPolicy
 
 ### Changed
 
 - Updated 'Resolve-Dependency.ps1' to latest version of Sampler.
+- Updated 'Microsoft365DSC' to 1.24.1016.1.
 
 ## [0.4.0] - 2024-09-11
 
