@@ -1,0 +1,7 @@
+AllowedCloudEndpoints:
+  - microsoftonline.cn
+DisplayName: CrossTenantAccessPolicy for 7a08e42d-6913-45c6-b9e1-1181c4ca233a
+Ensure: Present
+IsSingleInstance: Yes
+ManagedIdentity: true
+TenantId: MngEnvMCAP123456.onmicrosoft.com
