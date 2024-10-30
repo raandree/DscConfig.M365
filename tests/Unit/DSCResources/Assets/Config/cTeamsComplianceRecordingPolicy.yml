@@ -1,7 +1,22 @@
 Items:
   - Identity: Global
     ComplianceRecordingApplications:
-      - qwertzuio-abcd-abcd-abcd-qwertzuio
+      - Id: 00000000-0000-0000-0000-000000000000
+        ComplianceRecordingPairedApplications:
+          - 00000000-0000-0000-0000-000000000000
+        ConcurrentInvitationCount: 1
+        RequiredDuringCall: True
+        RequiredBeforeMeetingJoin: True
+        RequiredBeforeCallEstablishment: True
+        RequiredDuringMeeting: True
+      - Id: 12345678-0000-0000-0000-000000000000
+        ComplianceRecordingPairedApplications:
+          - 87654321-0000-0000-0000-000000000000')
+        ConcurrentInvitationCount: 1
+        RequiredDuringCall: True
+        RequiredBeforeMeetingJoin: True
+        RequiredBeforeCallEstablishment: True
+        RequiredDuringMeeting: True
     DisableComplianceRecordingAudioNotificationForCalls: False
     Enabled: False
     Ensure: Present
