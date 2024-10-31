@@ -1,0 +1,10 @@
+Items:
+  - DisplayName: 'Windows 10 Desktops'
+    Description: 'All windows 10 Desktops'
+    AppLockerApplicationControl: 'enforceComponentsAndStoreApps'
+    SmartScreenBlockOverrideForFiles: false
+    SmartScreenEnableInShell: true
+    Ensure: 'Present'
+    ApplicationId: $ApplicationId
+    TenantId: $TenantId
+    CertificateThumbprint: $CertificateThumbprint

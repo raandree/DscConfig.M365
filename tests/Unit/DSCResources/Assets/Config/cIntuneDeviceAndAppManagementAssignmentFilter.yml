@@ -1,0 +1,9 @@
+Items:
+  - DisplayName: 'Test Device Filter'
+    Description: 'This is a new Filter'
+    Platform: 'windows10AndLater'
+    Rule: "(device.manufacturer -ne 'Microsoft Corporation')"
+    Ensure: 'Present'
+    ApplicationId: $ApplicationId
+    TenantId: $TenantId
+    CertificateThumbprint: $CertificateThumbprint

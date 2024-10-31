@@ -1,0 +1,54 @@
+Items:
+    DisplayName: 'Android device admin'
+    AppsBlockClipboardSharing: true
+    AppsBlockCopyPaste: true
+    AppsBlockYouTube: false
+    Assignments:
+      - deviceAndAppManagementAssignmentFilterType: 'none'
+        dataType: '#microsoft.graph.allDevicesAssignmentTarget'
+    BluetoothBlocked: true
+    CameraBlocked: true
+    CellularBlockDataRoaming: false
+    CellularBlockMessaging: false
+    CellularBlockVoiceRoaming: false
+    CellularBlockWiFiTethering: false
+    CompliantAppListType: 'appsInListCompliant'
+    CompliantAppsList:
+      - name: 'customApp'
+        publisher: 'google2'
+        appStoreUrl: 'https://appUrl.com'
+        appId: 'com.custom.google.com'
+    DateAndTimeBlockChanges: true
+    DeviceSharingAllowed: false
+    DiagnosticDataBlockSubmission: false
+    FactoryResetBlocked: false
+    GoogleAccountBlockAutoSync: false
+    GooglePlayStoreBlocked: false
+    KioskModeBlockSleepButton: false
+    KioskModeBlockVolumeButtons: true
+    LocationServicesBlocked: false
+    NfcBlocked: false
+    PasswordBlockFingerprintUnlock: false
+    PasswordBlockTrustAgents: false
+    PasswordRequired: true
+    PasswordRequiredType: 'numeric'
+    PowerOffBlocked: false
+    RequiredPasswordComplexity: 'low'
+    ScreenCaptureBlocked: false
+    SecurityRequireVerifyApps: false
+    StorageBlockGoogleBackup: false
+    StorageBlockRemovableStorage: false
+    StorageRequireDeviceEncryption: false
+    StorageRequireRemovableStorageEncryption: true
+    VoiceAssistantBlocked: false
+    VoiceDialingBlocked: false
+    WebBrowserBlockAutofill: false
+    WebBrowserBlocked: false
+    WebBrowserBlockJavaScript: false
+    WebBrowserBlockPopups: false
+    WebBrowserCookieSettings: 'allowAlways'
+    WiFiBlocked: false
+    Ensure: 'Present'
+    ApplicationId: $ApplicationId
+    TenantId: $TenantId
+    CertificateThumbprint: $CertificateThumbprint

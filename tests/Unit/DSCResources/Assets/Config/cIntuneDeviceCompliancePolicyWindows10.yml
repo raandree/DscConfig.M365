@@ -1,0 +1,39 @@
+Items:
+  - DisplayName: 'Windows 10 DSC Policy'
+    Description: 'Test policy'
+    PasswordRequired: false
+    PasswordBlockSimple: false
+    PasswordRequiredToUnlockFromIdle: true
+    PasswordMinutesOfInactivityBeforeLock: 15
+    PasswordExpirationDays: 365
+    PasswordMinimumLength: 6
+    PasswordPreviousPasswordBlockCount: 13
+    PasswordMinimumCharacterSetCount: 1
+    PasswordRequiredType: 'Devicedefault'
+    RequireHealthyDeviceReport: true
+    OsMinimumVersion: 10
+    OsMaximumVersion: 10.19
+    MobileOsMinimumVersion: 10
+    MobileOsMaximumVersion: 10.19
+    EarlyLaunchAntiMalwareDriverEnabled: false
+    BitLockerEnabled: false
+    SecureBootEnabled: true
+    CodeIntegrityEnabled: true
+    StorageRequireEncryption: true
+    ActiveFirewallRequired: true
+    DefenderEnabled: true
+    DefenderVersion: ''
+    SignatureOutOfDate: true
+    RtpEnabled: true
+    AntivirusRequired: true
+    AntiSpywareRequired: true
+    DeviceThreatProtectionEnabled: true
+    DeviceThreatProtectionRequiredSecurityLevel: 'Medium'
+    ConfigurationManagerComplianceRequired: false
+    TPMRequired: false
+    deviceCompliancePolicyScript: null
+    ValidOperatingSystemBuildRanges: []
+    Ensure: 'Present'
+    ApplicationId: $ApplicationId
+    TenantId: $TenantId
+    CertificateThumbprint: $CertificateThumbprint

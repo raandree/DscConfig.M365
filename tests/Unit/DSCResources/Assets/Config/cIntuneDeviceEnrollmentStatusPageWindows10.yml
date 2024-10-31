@@ -1,0 +1,23 @@
+Items:
+  - DisplayName: "All users and all devices"
+    AllowDeviceResetOnInstallFailure: true
+    AllowDeviceUseOnInstallFailure: true
+    AllowLogCollectionOnInstallFailure: true
+    AllowNonBlockingAppInstallation: false
+    Assignments:
+      - deviceAndAppManagementAssignmentFilterType: 'none'
+        dataType: '#microsoft.graph.allDevicesAssignmentTarget'
+    BlockDeviceSetupRetryByUser: false
+    CustomErrorMessage: "Setup could not be completed. Please try again or contact your support person for help."
+    Description: "This is the default enrollment status screen configuration applied with the lowest priority to all users and all devices regardless of group membership."
+    DisableUserStatusTrackingAfterFirstUser: true
+    Ensure: "Present"
+    InstallProgressTimeoutInMinutes: 60
+    InstallQualityUpdates: false
+    Priority: 0
+    SelectedMobileAppIds: []
+    ShowInstallationProgress: true
+    TrackInstallProgressForAutopilotOnly: true
+    ApplicationId: $ApplicationId
+    TenantId: $TenantId
+    CertificateThumbprint: $CertificateThumbprint

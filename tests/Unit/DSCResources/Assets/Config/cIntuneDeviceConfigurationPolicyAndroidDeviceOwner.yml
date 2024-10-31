@@ -1,0 +1,43 @@
+Items:
+  - DisplayName: 'general confi - AndroidDeviceOwner'
+    Assignments: []
+    AzureAdSharedDeviceDataClearApps: []
+    CameraBlocked: true
+    CrossProfilePoliciesAllowDataSharing: 'notConfigured'
+    EnrollmentProfile: 'notConfigured'
+    FactoryResetDeviceAdministratorEmails: []
+    GlobalProxy:
+      odataType: '#microsoft.graph.androidDeviceOwnerGlobalProxyDirect'
+      host: 'myproxy.com'
+      port: 8083
+    KioskCustomizationStatusBar: 'notConfigured'
+    KioskCustomizationSystemNavigation: 'notConfigured'
+    KioskModeAppPositions: []
+    KioskModeApps: []
+    KioskModeManagedFolders: []
+    KioskModeUseManagedHomeScreenApp: 'notConfigured'
+    KioskModeWifiAllowedSsids: []
+    MicrophoneForceMute: true
+    NfcBlockOutgoingBeam: true
+    PasswordBlockKeyguardFeatures: []
+    PasswordRequiredType: 'deviceDefault'
+    PasswordRequireUnlock: 'deviceDefault'
+    PersonalProfilePersonalApplications: []
+    PersonalProfilePlayStoreMode: 'notConfigured'
+    ScreenCaptureBlocked: true
+    SecurityRequireVerifyApps: true
+    StayOnModes: []
+    StorageBlockExternalMedia: true
+    SystemUpdateFreezePeriods:
+      - startMonth: 12
+        startDay: 23
+        endMonth: 12
+        endDay: 30
+    VpnAlwaysOnLockdownMode: false
+    VpnAlwaysOnPackageIdentifier: ''
+    WorkProfilePasswordRequiredType: 'deviceDefault'
+    WorkProfilePasswordRequireUnlock: 'deviceDefault'
+    Ensure: 'Present'
+    ApplicationId: $ApplicationId
+    TenantId: $TenantId
+    CertificateThumbprint: $CertificateThumbprint

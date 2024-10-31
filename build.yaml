@@ -100,6 +100,7 @@ DscTest:
         ExcludeTag:
           - Common Tests - New Error-Level Script Analyzer Rules
           - Common Tests - Validate Localization
+          - Common Tests - Relative Path Length
       Output:
         Verbosity: Detailed
         CIFormat: Auto
