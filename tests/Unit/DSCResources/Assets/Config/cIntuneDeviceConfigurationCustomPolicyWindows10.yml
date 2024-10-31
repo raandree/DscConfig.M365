@@ -1,0 +1,25 @@
+Items:
+  - DisplayName: "custom"
+    Assignments:
+      - deviceAndAppManagementAssignmentFilterType: "none"
+        dataType: "#microsoft.graph.allDevicesAssignmentTarget"
+    Ensure: "Present"
+    OmaSettings:
+      - Description: "custom"
+        OmaUri: "/oma/custom"
+        odataType: "#microsoft.graph.omaSettingString"
+        SecretReferenceValueId: "5b0e1dba-4523-455e-9fdd-e36c833b57bf_e072d616-12bc-4ea3-9171-ab080e4c120d_1f958162-15d4-42ba-92c4-17c2544b2179"
+        Value: "****"
+        IsEncrypted: True
+        DisplayName: "oma"
+      - Description: "custom 2"
+        OmaUri: "/oma/custom2"
+        odataType: "#microsoft.graph.omaSettingInteger"
+        Value: 2
+        IsReadOnly: False
+        IsEncrypted: False
+        DisplayName: "custom 2"
+    SupportsScopeTags: True
+    ApplicationId: $ApplicationId
+    TenantId: $TenantId
+    CertificateThumbprint: $CertificateThumbprint

@@ -1,0 +1,30 @@
+Items:
+  - DisplayName: "Shared Multi device"
+    AccountManagerPolicy:
+      CacheAccountsAboveDiskFreePercentage: 50
+      AccountDeletionPolicy: 'diskSpaceThreshold'
+      RemoveAccountsBelowDiskFreePercentage: 20
+    AllowedAccounts:
+      - "guest"
+      - "domain"
+    AllowLocalStorage: true
+    Assignments:
+      - deviceAndAppManagementAssignmentFilterType: 'none'
+        dataType: '#microsoft.graph.allDevicesAssignmentTarget'
+    DisableAccountManager: false
+    DisableEduPolicies: false
+    DisablePowerPolicies: false
+    DisableSignInOnResume: false
+    Enabled: true
+    Ensure: "Present"
+    FastFirstSignIn: "notConfigured"
+    IdleTimeBeforeSleepInSeconds: 60
+    LocalStorage: "enabled"
+    MaintenanceStartTime: "00:03:00"
+    SetAccountManager: "enabled"
+    SetEduPolicies: "enabled"
+    SetPowerPolicies: "enabled"
+    SignInOnResume: "enabled"
+    ApplicationId: $ApplicationId
+    TenantId: $TenantId
+    CertificateThumbprint: $CertificateThumbprint

@@ -1,0 +1,13 @@
+Items:
+  - DisplayName: "MDE onboarding Legacy"
+    AdvancedThreatProtectionAutoPopulateOnboardingBlob: true
+    AdvancedThreatProtectionOnboardingFilename: "WindowsDefenderATP.onboarding"
+    AllowSampleSharing: true
+    Assignments:
+      - deviceAndAppManagementAssignmentFilterType: 'none'
+        dataType: '#microsoft.graph.allDevicesAssignmentTarget'
+    EnableExpeditedTelemetryReporting: true
+    Ensure: "Present"
+    ApplicationId: $ApplicationId
+    TenantId: $TenantId
+    CertificateThumbprint: $CertificateThumbprint

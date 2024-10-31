@@ -1,0 +1,14 @@
+Items:
+  - DisplayName: "Domain Join"
+    ActiveDirectoryDomainName: "domain.com"
+    Assignments:
+      - deviceAndAppManagementAssignmentFilterType: "none"
+        dataType: "#microsoft.graph.allLicensedUsersAssignmentTarget"
+    ComputerNameStaticPrefix: "WK-"
+    ComputerNameSuffixRandomCharCount: 12
+    Ensure: "Present"
+    OrganizationalUnit: "OU=workstation,CN=domain,CN=com"
+    SupportsScopeTags: True
+    ApplicationId: $ApplicationId
+    TenantId: $TenantId
+    CertificateThumbprint: $CertificateThumbprint

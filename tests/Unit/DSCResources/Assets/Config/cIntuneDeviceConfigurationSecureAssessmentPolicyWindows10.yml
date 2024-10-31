@@ -1,0 +1,17 @@
+Items:
+  - DisplayName: "Secure Assessment"
+    AllowPrinting: True
+    AllowScreenCapture: True
+    AllowTextSuggestion: True
+    AssessmentAppUserModelId: ""
+    Assignments:
+      - deviceAndAppManagementAssignmentFilterType: "none"
+        dataType: "#microsoft.graph.allLicensedUsersAssignmentTarget"
+    ConfigurationAccount: "user@domain.com"
+    ConfigurationAccountType: "azureADAccount"
+    Ensure: "Present"
+    LaunchUri: "https://assessment.domain.com"
+    LocalGuestAccountName: ""
+    ApplicationId: $ApplicationId
+    TenantId: $TenantId
+    CertificateThumbprint: $CertificateThumbprint

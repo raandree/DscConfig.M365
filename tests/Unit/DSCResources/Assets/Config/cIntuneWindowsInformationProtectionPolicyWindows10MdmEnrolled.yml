@@ -1,0 +1,29 @@
+Items:
+  - DisplayName: "WIP"
+    AzureRightsManagementServicesAllowed: False
+    Description: "DSC"
+    EnforcementLevel: "encryptAndAuditOnly"
+    EnterpriseDomain: "domain.co.uk"
+    EnterpriseIPRanges:
+      - DisplayName: "ipv4 range"
+        Ranges:
+          - UpperAddress: 1.1.1.3
+            LowerAddress: 1.1.1.1
+            odataType: "#microsoft.graph.iPv4Range"
+    EnterpriseIPRangesAreAuthoritative: True
+    EnterpriseProxyServersAreAuthoritative: True
+    IconsVisible: False
+    IndexingEncryptedStoresOrItemsBlocked: False
+    ProtectedApps:
+      - Description: "Microsoft.MicrosoftEdge"
+        odataType: "#microsoft.graph.windowsInformationProtectionStoreApp"
+        Denied: False
+        PublisherName: "CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+        ProductName: "Microsoft.MicrosoftEdge"
+        DisplayName: "Microsoft Edge"
+    ProtectionUnderLockConfigRequired: False
+    RevokeOnUnenrollDisabled: False
+    Ensure: "Present"
+    ApplicationId: $ApplicationId
+    TenantId: $TenantId
+    CertificateThumbprint: $CertificateThumbprint
