@@ -64,6 +64,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - cIntuneWindowsInformationProtectionPolicyWindows10MdmEnrolled
   - cIntuneWindowsUpdateForBusinessFeatureUpdateProfileWindows10
   - cIntuneWindowsUpdateForBusinessRingUpdateProfileWindows10
+  - cSCRetentionCompliancePolicy
+  - cSCRetentionComplianceRule
+  - cSCRoleGroup
+  - cSCAutoSensitivityLabelPolicy
+  - cSCRoleGroupMember
+  - cSCDeviceConditionalAccessPolicy
+  - cSCDeviceConfigurationPolicy
+  - cSCProtectionAlert
+  - cSCSecurityFilter
+  - cSCAuditConfigurationPolicy
+  - cSCAutoSensitivityLabelRule
+  - cSCFilePlanPropertyAuthority
+  - cSCFilePlanPropertyCategory
+  - cSCFilePlanPropertyCitation
+  - cSCFilePlanPropertyDepartment
+  - cSCFilePlanPropertyReferenceId
+  - cSCFilePlanPropertySubCategory
+  - cSCRetentionEventType
+  - cSCSupervisoryReviewPolicy
+  - cSCSupervisoryReviewRule
 
 ### Changed
 
