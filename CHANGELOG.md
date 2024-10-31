@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Teams Resources. This was initially created from Microsoft365DSC 1.24.515.2.
 - Added test data for:
+  - cAADExternalIdentityPolicy
   - cAADCrossTenantAccessPolicy
   - cIntuneAccountProtectionLocalAdministratorPasswordSolutionPolicy
   - cIntuneAccountProtectionLocalUserGroupMembershipPolicy
