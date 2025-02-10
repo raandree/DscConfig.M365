@@ -134,7 +134,19 @@ function New-DscCompositeResourceCode
     [void]$code.AppendLine("configuration $CompositeResourceName {")
     [void]$code.AppendLine('    param (')
 
-    $dscParameters = Get-DscResourceProperty -ModuleInfo (Get-Module -Name $DscResourceModuleName -ListAvailable) -ResourceName $DscResourceName |
+    $m = Import-Module -Name DscBuildHelpers -Force -PassThru
+    $dscParameters = & $m {
+        param (
+            [Parameter(Mandatory = $true)]
+            [string]
+            $DscResourceModuleName,
+
+            [Parameter(Mandatory = $true)]
+            [string]
+            $DscResourceName
+        )
+        Get-DscResourceProperty -ModuleInfo (Get-Module -Name $DscResourceModuleName -ListAvailable) -ResourceName $DscResourceName
+    } -DscResourceModuleName $DscResourceModuleName -DscResourceName $DscResourceName |
         Where-Object -FilterScript { $_.Name -notin 'PsDscRunAsCredential', 'DependsOn' }
 
     if (-not $dscParameters)
