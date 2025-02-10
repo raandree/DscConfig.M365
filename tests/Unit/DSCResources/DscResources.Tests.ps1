@@ -100,6 +100,20 @@ configuration TestConfig {
         $mofFile | Should -BeOfType System.IO.FileInfo
     }
 
+    It "'<DscResourceName>' MOF file should contain Azure connection data" -TestCases $testCases {
+
+        if ($Skip)
+        {
+            Set-ItResult -Skipped -Because "Tests for '$DscResourceName' are skipped"
+        }
+
+        $mofFile = Get-Content -Path "$($OutputDirectory)\localhost_$DscResourceName.mof" -ErrorAction SilentlyContinue
+        $result = $mofFile -match 'instance of MSFT_Credential' -or
+        $mofFile -match 'CertificateThumbprint = "[0-9a-fA-F]{40}"'
+
+        $result | Should -Be $true
+    }
+
 }
 
 Describe 'Final tests' -Tags FunctionalQuality {
