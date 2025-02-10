@@ -5,6 +5,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Updated the `Microsoft365DSC` module to version `1.25.205.1` in `RequiredModules.psd1`.
+- Updated the `DscBuildHelpers` module to version `0.3.0-preview0003` in `RequiredModules.psd1`.
+- `Get-DscResourceProperty` is not a public function hence in needs to be called in the module context.
+
+### Removed
+
+- `DscBuildHelpers` module and in gitignore
+- `ProtectedData` module and in gitignore
+
 ## [0.5.0] - 2024-10-31
 
 ### Added
