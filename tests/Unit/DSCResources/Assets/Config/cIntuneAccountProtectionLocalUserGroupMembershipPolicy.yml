@@ -4,13 +4,13 @@ Items:
     Ensure: "Present"
     Assignments: []
     LocalUserGroupCollection:
-      - LocalGroups: 
+      - LocalGroups:
           - 'administrators'
           - 'users'
-        Members: 
+        Members:
           - 'S-1-12-1-1167842105-1150511762-402702254-1917434032'
         Action: 'add_update'
         UserSelectionType: 'users'
     ApplicationId: $ApplicationId
-    TenantId: $TenantId
-    CertificateThumbprint: $CertificateThumbprint
+    TenantId: 44e8e0b6-ce52-408c-b3b7-085d1ec27a4b
+    CertificateThumbprint: F85DCA77BCB9209234D898E11A76F4A39C36BD70
