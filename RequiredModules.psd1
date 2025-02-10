@@ -21,7 +21,7 @@
     Datum                       = 'latest'
     'Datum.ProtectedData'       = 'latest'
     ProtectedData               = 'latest'
-    DscBuildHelpers             = 'latest'
+    DscBuildHelpers             = '0.3.0-preview0003'
     'DscResource.Test'          = 'latest'
     MarkdownLinkCheck           = 'latest'
     'DscResource.AnalyzerRules' = 'latest'
