@@ -7,5 +7,5 @@ Items:
       OfferStartDateTimeInUTC: "2023-02-03T16:00:00.0000000+00:00"
     Ensure: "Present"
     ApplicationId: $ApplicationId
-    TenantId: $TenantId
-    CertificateThumbprint: $CertificateThumbprint
+    TenantId: 44e8e0b6-ce52-408c-b3b7-085d1ec27a4b
+    CertificateThumbprint: F85DCA77BCB9209234D898E11A76F4A39C36BD70

@@ -1,9 +1,21 @@
-# Changelog for DscConfig.Demo
+# Changelog for DscConfig.M365
 
 The format is based on and uses the types of changes according to [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+### Added
+
+- The code generator will add standard connection parameters to to each array composite resource:
+  - TenantId
+  - ManagedIdentity
+  - Credential
+  - CertificateThumbprint
+  - ApplicationSecret
+  - ApplicationId
+  - AccessTokens
+- Added test `'<DscResourceName>' MOF file should contain Azure connection data`.
 
 ### Changed
 

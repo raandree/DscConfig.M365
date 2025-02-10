@@ -23,5 +23,5 @@ Items:
       - '169bf4fc-5914-40f4-ad33-48c225396183'
     SecondaryIdentityCertificateForClientAuthenticationId: '0b9aef2f-1671-4260-8eb9-3ab3138e176a'
     ApplicationId: $ApplicationId
-    TenantId: $TenantId
-    CertificateThumbprint: $CertificateThumbprint
+    TenantId: 44e8e0b6-ce52-408c-b3b7-085d1ec27a4b
+    CertificateThumbprint: F85DCA77BCB9209234D898E11A76F4A39C36BD70
