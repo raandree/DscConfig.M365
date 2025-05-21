@@ -115,6 +115,14 @@ stages:
               testResultsFiles: '$(buildFolderName)/$(testResultFolderName)/NUnit*.xml'
               testRunTitle: 'Windows (Windows PowerShell)'
 
+          - task: PublishPipelineArtifact@1
+            displayName: 'Publish Test MOF Files'
+            inputs:
+              targetPath: '$(buildFolderName)/MOF'
+              artifact: MOF5
+              publishLocation: pipeline
+              parallel: true
+
       - job: test_ps
         displayName: 'Windows (PowerShell)'
         timeoutInMinutes: 120
@@ -143,6 +151,14 @@ stages:
               testResultsFormat: 'NUnit'
               testResultsFiles: '$(buildFolderName)/$(testResultFolderName)/NUnit*.xml'
               testRunTitle: 'Windows (PowerShell)'
+
+          - task: PublishPipelineArtifact@1
+            displayName: 'Publish Test MOF Files'
+            inputs:
+              targetPath: '$(buildFolderName)/MOF'
+              artifact: MOF7
+              publishLocation: pipeline
+              parallel: true
 
   - stage: Deploy
     dependsOn: Test

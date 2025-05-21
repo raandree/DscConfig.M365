@@ -8,6 +8,7 @@ BeforeDiscovery {
 
     $dscResources = Get-DscResource -Module $moduleUnderTest.Name
     $here = $PSScriptRoot
+    mkdir -Path $OutputDirectory\MOF -Force | Out-Null
 
     $skippedDscResources = ''
 
@@ -85,7 +86,7 @@ configuration TestConfig {
         Invoke-Expression -Command $dscConfiguration
 
         {
-            TestConfig -ConfigurationData $configurationData -OutputPath $OutputDirectory -ErrorAction Stop
+            TestConfig -ConfigurationData $configurationData -OutputPath $OutputDirectory\MOF -ErrorAction Stop
         } | Should -Not -Throw
     }
 
@@ -96,7 +97,7 @@ configuration TestConfig {
             Set-ItResult -Skipped -Because "Tests for '$DscResourceName' are skipped"
         }
 
-        $mofFile = Get-Item -Path "$($OutputDirectory)\localhost_$DscResourceName.mof" -ErrorAction SilentlyContinue
+        $mofFile = Get-Item -Path "$($OutputDirectory)\MOF\localhost_$DscResourceName.mof" -ErrorAction SilentlyContinue
         $mofFile | Should -BeOfType System.IO.FileInfo
     }
 
@@ -107,7 +108,7 @@ configuration TestConfig {
             Set-ItResult -Skipped -Because "Tests for '$DscResourceName' are skipped"
         }
 
-        $mofFile = Get-Content -Path "$($OutputDirectory)\localhost_$DscResourceName.mof" -ErrorAction SilentlyContinue
+        $mofFile = Get-Content -Path "$($OutputDirectory)\MOF\localhost_$DscResourceName.mof" -ErrorAction SilentlyContinue
         $result = $mofFile -match 'instance of MSFT_Credential' -or
         $mofFile -match 'CertificateThumbprint = "[0-9a-fA-F]{40}"'
 
@@ -120,7 +121,7 @@ Describe 'Final tests' -Tags FunctionalQuality {
 
     It 'Every composite resource has compiled' -TestCases $finalTestCases {
 
-        $mofFiles = Get-ChildItem -Path $OutputDirectory -Filter *.mof
+        $mofFiles = Get-ChildItem -Path $OutputDirectory\MOF -Filter *.mof
         Write-Host "Number of compiled MOF files: $($mofFiles.Count)"
         $FilteredCompositeResources.Count | Should -Be $mofFiles.Count
 
