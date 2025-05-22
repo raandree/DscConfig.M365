@@ -26,29 +26,20 @@ DscConfig.M365 is designed to work with Microsoft365DscWorkshop for several impo
 
 ## Setting Up the Complete Solution
 
-To implement a complete solution, you need to set up both projects:
+To implement a complete solution, you typically just need to set up Microsoft365DscWorkshop, which automatically includes DscConfig.M365:
 
-1. Install DscConfig.M365 according to the [Installation](Installation.md) instructions.
-
-2. Set up Microsoft365DscWorkshop:
+1. Clone and set up Microsoft365DscWorkshop:
 
 ```powershell
 # Clone the Microsoft365DscWorkshop repository
 git clone https://github.com/raandree/Microsoft365DscWorkshop.git
 cd Microsoft365DscWorkshop
 
-# Follow the setup instructions in the Microsoft365DscWorkshop README
+# Run the bootstrap script which will download all dependencies including DscConfig.M365
+./Build.ps1 -ResolveDependency
 ```
 
-3. Configure Microsoft365DscWorkshop to use DscConfig.M365:
-
-```powershell
-# In your Microsoft365DscWorkshop's RequiredModules.psd1, ensure DscConfig.M365 is listed
-@{
-    DscConfig.M365 = 'latest'
-    # Other required modules
-}
-```
+Microsoft365DscWorkshop's `RequiredModules.psd1` file already includes DscConfig.M365 as a dependency, so it will be automatically downloaded and made available to your project. You don't need to install or reference DscConfig.M365 separately.
 
 ## Workflow Overview
 
@@ -61,28 +52,41 @@ The typical workflow when using these projects together:
 
 ## Example Integration
 
-Here's a simplified example of how Microsoft365DscWorkshop consumes DscConfig.M365 resources:
+Here's a simplified example of how Microsoft365DscWorkshop consumes DscConfig.M365 resources using YAML-based configuration:
 
-```powershell
-# In Microsoft365DscWorkshop configuration
-configuration M365Configuration {
-    Import-DscResource -ModuleName DscConfig.M365
-
-    node $AllNodes.NodeName {
-        # Use composite resources from DscConfig.M365
-        cAADGroup Groups {
-            Items = $ConfigurationData.Groups
-            TenantId = $ConfigurationData.TenantId
-            Credential = $Credential
-        }
-
-        cEXOTransportRule TransportRules {
-            Items = $ConfigurationData.TransportRules
-            TenantId = $ConfigurationData.TenantId
-            Credential = $Credential
-        }
-    }
-}
+```yaml
+# In Microsoft365DscWorkshop's YAML configuration files
+# For example, in source/AllNodes/Dev/M365.yml
+configurations:
+  - M365:  # This is the name of the configuration document to generate
+      DscResourcesToExecute:
+        cAADGroup:
+          TenantId: contoso.onmicrosoft.com
+          Credential: "[ENC=PE9ianMgVmVyc2lvbj0iMS4xLjAu...encoded credential...==]"
+          Items:
+            - DisplayName: "Marketing Team"
+              Description: "Marketing department team"
+              MailEnabled: true
+              SecurityEnabled: true
+              MailNickname: "marketing"
+              Ensure: "Present"
+            - DisplayName: "Sales Team"
+              Description: "Sales department team"
+              MailEnabled: true
+              SecurityEnabled: true
+              MailNickname: "sales"
+              Ensure: "Present"
+        
+        cEXOTransportRule:
+          TenantId: contoso.onmicrosoft.com
+          Credential: "[ENC=PE9ianMgVmVyc2lvbj0iMS4xLjAu...encoded credential...==]"
+          Items:
+            - Name: "External Email Warning"
+              FromScope: "NotInOrganization"
+              SentToScope: "InOrganization"
+              ApplyHtmlDisclaimerLocation: "Prepend"
+              ApplyHtmlDisclaimerText: "<p>[External Email Warning]</p>"
+              Ensure: "Present"
 ```
 
 ## Additional Resources

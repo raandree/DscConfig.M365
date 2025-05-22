@@ -10,6 +10,8 @@ This module is part of a complete solution that requires:
 - [Microsoft365DSC](https://github.com/microsoft/Microsoft365DSC) - The underlying DSC resource module for Microsoft 365
 - [Microsoft365DscWorkshop](https://github.com/raandree/Microsoft365DscWorkshop) - The deployment framework for managing configurations
 
+> **Important:** DscConfig.M365 is not meant to be installed separately. It is automatically included as a dependency by Microsoft365DscWorkshop through its PSDepend configuration in the RequiredModules.psd1 file.
+
 ## Purpose
 
 This project serves as the middle layer in a three-tier architecture for Microsoft 365 configuration management:
@@ -31,7 +33,13 @@ The module dynamically generates DSC composite resources (prefixed with 'c') for
 
 > **Important:** DscConfig.M365 is designed to work with [Microsoft365DscWorkshop](https://github.com/raandree/Microsoft365DscWorkshop) and is not intended for standalone use.
 
-See the [Installation](docs/Installation.md), [Usage](docs/Usage.md), and [Integration with Microsoft365DscWorkshop](docs/Integration.md) documentation for details on getting started.
+See the
+
+- [Installation](docs/Installation.md)
+- [Usage](docs/Usage.md)
+- [Integration with Microsoft365DscWorkshop](docs/Integration.md)
+
+documentation for details on getting started.
 
 ## Resources
 

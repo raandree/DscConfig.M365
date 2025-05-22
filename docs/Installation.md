@@ -14,11 +14,19 @@ Before installing DscConfig.M365, ensure you have the following prerequisites:
 
 ## Installation Steps
 
-### Option 1: Install from PowerShell Gallery
+> **Note:** Typically, you don't need to install DscConfig.M365 directly. It is automatically downloaded by Microsoft365DscWorkshop via PSDepend as it's listed as a requirement in the `RequiredModules.psd1` file.
+
+### Option 1: As Part of Microsoft365DscWorkshop
+
+The recommended way to use DscConfig.M365 is through Microsoft365DscWorkshop:
 
 ```powershell
-# Install the module from PowerShell Gallery
-Install-Module -Name DscConfig.M365 -Scope CurrentUser
+# Clone the Microsoft365DscWorkshop repository
+git clone https://github.com/raandree/Microsoft365DscWorkshop.git
+cd Microsoft365DscWorkshop
+
+# Run the bootstrap script which will download all required modules including DscConfig.M365
+./Build.ps1 -ResolveDependency
 ```
 
 ### Option 2: Manual Installation
@@ -42,21 +50,14 @@ cd DscConfig.M365
 .\Build.ps1 -ResolveDependency -Tasks Build
 ```
 
-4. Set up Microsoft365DscWorkshop (required):
-
-```powershell
-# Clone the Microsoft365DscWorkshop repository
-git clone https://github.com/raandree/Microsoft365DscWorkshop.git
-cd Microsoft365DscWorkshop
-# Follow the setup instructions in the Microsoft365DscWorkshop documentation
-```
+4. Consider setting up Microsoft365DscWorkshop which is required for using DscConfig.M365 in a production environment.
 
 ## Module Dependencies
 
 DscConfig.M365 depends on:
 
-- **Microsoft365DSC**: The underlying DSC resource module for Microsoft 365
-- **Microsoft365DscWorkshop**: The deployment framework (required for the full workflow)
+- **Microsoft365DSC**: The underlying DSC resource module for Microsoft 365 (version specified in `RequiredModules.psd1`)
+- **Microsoft365DscWorkshop**: The deployment framework that automatically includes DscConfig.M365 through its dependency management
 - Other supporting modules (specified in `RequiredModules.psd1`):
   - Datum
   - DscBuildHelpers
@@ -65,10 +66,10 @@ DscConfig.M365 depends on:
 
 ## Verification
 
-To verify that the module has been installed correctly and is ready to use:
+To verify that the module is accessible through Microsoft365DscWorkshop or has been built correctly in your local repository:
 
 ```powershell
-# Import the module to check if it loads correctly
+# Import the module
 Import-Module DscConfig.M365 -Verbose
 
 # List available composite resources
@@ -79,4 +80,4 @@ You should see a list of composite resources prefixed with 'c' (e.g., cAADApplic
 
 ## Next Steps
 
-After installation, refer to the [Usage](Usage.md) documentation to learn how to use DscConfig.M365 to manage your Microsoft 365 resources.
+Refer to the [Integration with Microsoft365DscWorkshop](Integration.md) documentation to learn how to use DscConfig.M365 with Microsoft365DscWorkshop, and the [Usage](Usage.md) documentation for details on how to use the composite resources.

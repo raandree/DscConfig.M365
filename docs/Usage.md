@@ -111,21 +111,26 @@ cAADGroup Groups {
 When using DscConfig.M365 with the Microsoft365DscWorkshop framework, you'll define your configurations in YAML files:
 
 ```yaml
-# Example YAML configuration for cAADGroup
-cAADGroup:
-  Items:
-    - DisplayName: "Marketing Team"
-      Description: "Marketing department team"
-      MailEnabled: true
-      SecurityEnabled: true
-      MailNickname: "marketing"
-      Ensure: "Present"
-    - DisplayName: "Sales Team"
-      Description: "Sales department team"
-      MailEnabled: true
-      SecurityEnabled: true
-      MailNickname: "sales"
-      Ensure: "Present"
+# Example YAML configuration for Microsoft365DscWorkshop
+configurations:
+  - M365:  # Configuration document name
+      DscResourcesToExecute:
+        cAADGroup:
+          TenantId: "%{lookup('Environment/M365Tenant/TenantId')}"
+          Credential: "[ENC=PE9ianMgVmVyc2lvbj0iMS4xLjAu...encoded credential...==]"
+          Items:
+            - DisplayName: "Marketing Team"
+              Description: "Marketing department team"
+              MailEnabled: true
+              SecurityEnabled: true
+              MailNickname: "marketing"
+              Ensure: "Present"
+            - DisplayName: "Sales Team"
+              Description: "Sales department team"
+              MailEnabled: true
+              SecurityEnabled: true
+              MailNickname: "sales"
+              Ensure: "Present"
 ```
 
 For detailed information on integrating with Microsoft365DscWorkshop, see the [Microsoft365DscWorkshop repository](https://github.com/raandree/Microsoft365DscWorkshop).
