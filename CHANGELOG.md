@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - ApplicationId
   - AccessTokens
 - Added test `'<DscResourceName>' MOF file should contain Azure connection data`.
+- Added more documentation.
 
 ### Changed
 
