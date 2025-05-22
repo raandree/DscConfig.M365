@@ -1,23 +1,51 @@
 TOPIC
-    about_DscConfig.Demo
+    about_DscConfig.M365
 
 SHORT DESCRIPTION
-    desc
+    DSC Composite Resources for Microsoft 365 management with PowerShell Desired State Configuration (DSC).
 
 LONG DESCRIPTION
-    {{ Add Long description here }}
+    DscConfig.M365 provides an abstraction layer between the Microsoft365DSC resources
+    and the deployment framework in Microsoft365DscWorkshop. It creates DSC composite resources
+    from the Microsoft365DSC resources to simplify configuration management and
+    deployment of Microsoft 365 resources.
+
+    The module dynamically generates DSC composite resources (prefixed with 'c') for
+    each Microsoft365DSC resource. It creates two types of composite resources:
+
+    - Scalar resources - For singleton resources (with IsSingleInstance property)
+    - Array resources - For resources that can have multiple instances    This module is part of a complete solution that requires:
+    - Microsoft365DSC - The underlying DSC resource module for Microsoft 365
+    - Microsoft365DscWorkshop - The deployment framework for managing configurations
 
 EXAMPLES
-    PS C:\> {{ add examples here }}
+    PS C:\> Import-Module DscConfig.M365
+    PS C:\> Get-DscResource -Module DscConfig.M365
+
+    # Example usage in a configuration:
+    PS C:\> configuration M365Config {
+    >>     Import-DscResource -ModuleName DscConfig.M365
+    >>     node localhost {
+    >>         cAADSecurityDefaults SecurityDefaults {
+    >>             IsSingleInstance = 'Yes'
+    >>             IsEnabled        = $true
+    >>             TenantId         = 'contoso.onmicrosoft.com'
+    >>             Credential       = $Credential
+    >>         }
+    >>     }
+    >> }
 
 NOTE:
     Thank you to all those who contributed to this module, by writing code, sharing opinions, and provided feedback.
 
 TROUBLESHOOTING NOTE:
     Look out on the Github repository for issues and new releases.
+    For issues with specific resources, refer to the Microsoft365DSC documentation.
 
 SEE ALSO
-  - {{ Please add Project URI such as github }}}
+  - https://github.com/dsccommunity/DscConfig.M365
+  - https://github.com/microsoft/Microsoft365DSC
+  - https://github.com/raandree/Microsoft365DscWorkshop
 
 KEYWORDS
-      {{ Add coma separated keywords here }}
+    DSC, DesiredStateConfiguration, PowerShell, Microsoft365, Office365, Azure, AD, SharePoint, Exchange, Intune, Teams
