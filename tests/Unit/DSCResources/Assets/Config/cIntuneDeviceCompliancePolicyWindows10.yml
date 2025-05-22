@@ -31,7 +31,6 @@ Items:
     DeviceThreatProtectionRequiredSecurityLevel: 'Medium'
     ConfigurationManagerComplianceRequired: false
     TPMRequired: false
-    deviceCompliancePolicyScript: null
     ValidOperatingSystemBuildRanges: []
     Ensure: 'Present'
     ApplicationId: $ApplicationId
