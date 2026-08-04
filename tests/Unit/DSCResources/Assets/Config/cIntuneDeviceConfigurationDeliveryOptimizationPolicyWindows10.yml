@@ -28,7 +28,6 @@ Items:
     MinimumRamAllowedToPeerInGigabytes: 3
     ModifyCacheLocation: "%systemdrive%"
     RestrictPeerSelectionBy: "subnetMask"
-    SupportsScopeTags: True
     VpnPeerCaching: "enabled"
     ApplicationId: $ApplicationId
     TenantId: 44e8e0b6-ce52-408c-b3b7-085d1ec27a4b

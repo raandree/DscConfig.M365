@@ -222,7 +222,6 @@ Items:
     StorageRequireMobileDeviceEncryption: false
     StorageRestrictAppDataToSystemVolume: false
     StorageRestrictAppInstallToSystemVolume: false
-    SupportsScopeTags: true
     TaskManagerBlockEndTask: false
     TenantLockdownRequireNetworkDuringOutOfBoxExperience: false
     UninstallBuiltInApps: false

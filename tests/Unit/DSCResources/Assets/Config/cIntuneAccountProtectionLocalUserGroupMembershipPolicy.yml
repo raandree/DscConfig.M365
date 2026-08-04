@@ -3,14 +3,14 @@ Items:
     Description: "My revised description"
     Ensure: "Present"
     Assignments: []
-    LocalUserGroupCollection:
-      - LocalGroups:
+    AccessGroup:
+      - desc:
           - 'administrators'
           - 'users'
-        Members:
+        member:
           - 'S-1-12-1-1167842105-1150511762-402702254-1917434032'
-        Action: 'add_update'
-        UserSelectionType: 'users'
+        action: 'AddUpdate'
+        userselectiontype: 'users'
     ApplicationId: $ApplicationId
     TenantId: 44e8e0b6-ce52-408c-b3b7-085d1ec27a4b
     CertificateThumbprint: F85DCA77BCB9209234D898E11A76F4A39C36BD70

@@ -8,6 +8,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Update Microsoft365DSC to version 1.26.729.2 and set DscBuildHelpers and PSDesiredStateConfiguration to latest.
+- Updated the test configuration data in `tests/Unit/DSCResources/Assets/Config` to the schemas
+  shipped with Microsoft365DSC 1.26.729.2:
+  - Removed the properties `AvailableToOtherTenants` (`AADApplication`, replaced by `SignInAudience`),
+    `SupportsScopeTags` (Intune device configuration policies), `UserVoiceForFeedbackEnabled`
+    (`SPOTenantSettings`), `EnableShiftPresence` (`TeamsShiftsPolicy`), `OptimizeDeviceDialing`
+    (`TeamsTenantDialPlan`) and `AllowPublicUsers` (`TeamsFederationConfiguration`).
+  - Renamed `ElegibilityAssignmentReq*` to `EligibilityAssignmentReq*` (`AADRoleSetting`).
+  - Moved `RequireAcceptingAccountMatchInvitedAccount` from `SPOSharingSettings` to `SPOTenantSettings`.
+  - Replaced `LocalUserGroupCollection` with `AccessGroup`
+    (`IntuneAccountProtectionLocalUserGroupMembershipPolicy`).
+  - `MaximumRecordingLength` (`TeamsOnlineVoicemailPolicy`) is now a number of seconds instead of a timespan.
+  - `ContentContainsSensitiveInformation` (`SCDLPComplianceRule`) is now an array.
+  - Converted `AADAuthenticationMethodPolicy` and the `Teams*Configuration` resources from array to
+    single-instance configuration data, as they now expose `IsSingleInstance`.
+
+### Fixed
+
+- The composite resource code generator no longer emits embedded CIM instance class names as parameter
+  types. Properties like `AADAuthenticationMethodPolicy/RegistrationEnforcement` are now typed as
+  `hashtable` (or `hashtable[]`), so the generated composite resource can be loaded and discovered again.
 
 ## [0.6.0] - 2025-05-22
 

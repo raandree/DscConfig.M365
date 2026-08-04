@@ -5,7 +5,7 @@ SearchResolveExactEmailOrUPN                  : false
 OfficeClientADALDisabled                      : false
 LegacyAuthProtocolsEnabled                    : true
 UsePersistentCookiesForExplorerView           : false
-UserVoiceForFeedbackEnabled                   : true
+RequireAcceptingAccountMatchInvitedAccount    : false
 PublicCdnEnabled                              : false
 PublicCdnAllowedFileTypes                     : CSS,EOT,GIF,ICO,JPEG,JPG,JS,MAP,PNG,SVG,TTF,WOFF
 UseFindPeopleInPeoplePicker                   : false

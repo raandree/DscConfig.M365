@@ -63,6 +63,17 @@ function ConvertTo-PowerShellType
 
         default
         {
+            # Embedded CIM instances have no PowerShell type. They are passed as hashtables.
+            if ($TypeName -match '^MSFT_(?<name>\w+)(?<array>\[\])?$')
+            {
+                if ($Matches.name -eq 'Credential')
+                {
+                    return "PSCredential$($Matches.array)"
+                }
+
+                return "hashtable$($Matches.array)"
+            }
+
             return $TypeName
         }
     }

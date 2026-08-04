@@ -15,6 +15,9 @@ bump to `1.26.729.2` is in progress and uncommitted on branch
 
 ## Recent milestones
 
+- 2026-08-04 Microsoft365DSC bumped to `1.26.729.2`; composite generator fixed
+  for embedded CIM instance types and 21 test config assets realigned with the
+  new schemas. `./build.ps1 -Tasks build,test` is green (509 passed, 0 failed).
 - 2026-08-04 Memory Bank initialized from repository evidence.
 - `333142b` Update Microsoft365DSC version to 1.25.521.1 (#44).
 - `46c86a1` Updated documentation (#42), released as `v0.6.0`.
@@ -34,8 +37,10 @@ bump to `1.26.729.2` is in progress and uncommitted on branch
 
 ## Open work
 
-- Finish and verify the Microsoft365DSC `1.26.729.2` bump: the last recorded
-  `./build.ps1 -UseModuleFast -ResolveDependency` run exited with code 1.
+- Commit the verified Microsoft365DSC `1.26.729.2` bump on `feature/update2608`
+  (held back at the user's request).
 - Decide whether `DscBuildHelpers` and `PSDesiredStateConfiguration` stay on
   `latest` (currently unpinned in the working tree, previously pinned to
   `0.3.0-preview0003` and `2.0.7`).
+- Seven test config assets reference resources that no longer exist in
+  Microsoft365DSC and are silently skipped by `Create_Dsc_Resource_Yaml_File`.

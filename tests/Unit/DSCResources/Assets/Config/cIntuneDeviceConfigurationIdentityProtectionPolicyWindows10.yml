@@ -14,7 +14,6 @@ Items:
     PinSpecialCharactersUsage: "allowed"
     PinUppercaseCharactersUsage: "allowed"
     SecurityDeviceRequired: true
-    SupportsScopeTags: true
     UnlockWithBiometricsEnabled: true
     UseCertificatesForOnPremisesAuthEnabled: true
     UseSecurityKeyForSignin: true

@@ -19,8 +19,8 @@ Items:
     AssignmentReqJustification                                : true
     AssignmentReqMFA                                          : false
     CertificateThumbprint                                     : F85DCA77BCB9209234D898E11A76F4A39C36BD70
-    ElegibilityAssignmentReqJustification                     : false
-    ElegibilityAssignmentReqMFA                               : false
+    EligibilityAssignmentReqJustification                     : false
+    EligibilityAssignmentReqMFA                               : false
     #EligibleAlertNotificationAdditionalRecipient              : @();
     EligibleAlertNotificationDefaultRecipient                 : true
     EligibleAlertNotificationOnlyCritical                     : false

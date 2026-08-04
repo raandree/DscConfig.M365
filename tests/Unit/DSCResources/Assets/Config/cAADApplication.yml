@@ -1,6 +1,6 @@
 Items:
   - DisplayName: AppDisplayName
-    AvailableToOtherTenants: false
+    SignInAudience: AzureADMyOrg
     GroupMembershipClaims: 0
     Homepage: https://app.contoso.com
     IdentifierUris: https://app.contoso.com
