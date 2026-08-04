@@ -8,7 +8,7 @@
         }
     }
 
-    Microsoft365DSC             = '1.25.521.1'
+    Microsoft365DSC             = '1.26.729.2'
 
     InvokeBuild                 = 'latest'
     PSScriptAnalyzer            = 'latest'
@@ -21,12 +21,12 @@
     Datum                       = 'latest'
     'Datum.ProtectedData'       = 'latest'
     ProtectedData               = 'latest'
-    DscBuildHelpers             = '0.3.0-preview0003'
+    DscBuildHelpers             = 'latest'
     'DscResource.Test'          = 'latest'
     MarkdownLinkCheck           = 'latest'
     'DscResource.AnalyzerRules' = 'latest'
     'DscResource.DocGenerator'  = 'latest'
-    PSDesiredStateConfiguration = '2.0.7'
+    PSDesiredStateConfiguration = 'latest'
     xDscResourceDesigner        = 'latest'
 
 }

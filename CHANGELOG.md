@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Update Microsoft365DSC version to 1.25.521.1.
+- Update Microsoft365DSC to version 1.26.729.2 and set DscBuildHelpers and PSDesiredStateConfiguration to latest.
 
 ## [0.6.0] - 2025-05-22
 
