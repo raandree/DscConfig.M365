@@ -5,8 +5,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- New `docs/GettingStarted.md` guide covering both supported paths: consuming the
+  composite resources through Microsoft365DscWorkshop and building this module
+  from source, including prerequisites, a first configuration and troubleshooting.
+
 ### Changed
 
+- Corrected the Microsoft365DscWorkshop repository URL throughout the
+  documentation. The project moved from `raandree/Microsoft365DscWorkshop` to
+  `dsccommunity/Microsoft365DscWorkshop`.
+- Rewrote the Microsoft365DscWorkshop integration documentation to match the
+  actual configuration data layout: one YAML file per composite resource under
+  the Datum hierarchy in `source/`, `Configurations.yml` to select the composite
+  resources to enact, and the `lookup_options` needed to merge `Items` across
+  layers. The previous `configurations/DscResourcesToExecute` example did not
+  exist in Microsoft365DscWorkshop.
+- Corrected the prerequisites in `docs/Installation.md`. The build requires
+  Windows and PowerShell 7 or later; Windows PowerShell 5.1 fails in the
+  `TestPowerShell7` task.
+- Replaced the hard-coded resource list in `docs/Resources.md` with a description
+  of how the generated set is determined by the assets in
+  `tests/Unit/DSCResources/Assets/Config`, plus commands to list the resources of
+  an installation. The previous list referenced resources that no longer exist in
+  Microsoft365DSC.
+- Fixed documentation examples that used properties the Microsoft365DSC resources
+  do not expose: `AvailableToOtherTenants` on `AADApplication`, `Default` on
+  `EXOAcceptedDomain`, and the nested `Conditions`/`GrantControls` objects on
+  `AADConditionalAccessPolicy`.
+- Documented the full set of connection parameters on array composite resources,
+  including `ApplicationSecret` and `AccessTokens`, and noted that the push-down
+  to `Items` is only generated for resources that expose `Ensure`.
 - Update Microsoft365DSC to version 1.26.729.2 and set DscBuildHelpers and PSDesiredStateConfiguration to latest.
 - Updated the test configuration data in `tests/Unit/DSCResources/Assets/Config` to the schemas
   shipped with Microsoft365DSC 1.26.729.2:

@@ -1,6 +1,10 @@
 # Available Resources
 
-This document lists the composite DSC resources available in the DscConfig.M365 module. All resources are dynamically generated during the module build process based on the resources available in Microsoft365DSC.
+This document explains which composite DSC resources the DscConfig.M365 module
+contains, how that set is determined and how to list it. The resources are
+generated during the build from the resources available in Microsoft365DSC, so
+this page deliberately does not hard-code a list that would go stale with every
+Microsoft365DSC release.
 
 ## Resource Naming Convention
 
@@ -10,145 +14,94 @@ All composite resources in DscConfig.M365 follow a naming convention:
 - Followed by the original Microsoft365DSC resource name
 - Example: `AADApplication` in Microsoft365DSC becomes `cAADApplication` in DscConfig.M365
 
-## Resource Categories
+The workload prefix of the underlying resource is preserved, so the composite
+resources group naturally by workload: `cAAD*` for Entra ID, `cEXO*` for Exchange
+Online, `cIntune*` for Intune, `cSPO*` for SharePoint Online, `cSC*` for Security
+and Compliance, `cTeams*` for Teams and `cO365*` for tenant-wide Office 365
+settings.
 
-The resources are organized into the following categories based on Microsoft 365 workloads:
+## Which Resources Are Generated
 
-### Azure Active Directory (AAD)
+The set is driven by the sample configuration data in
+`tests/Unit/DSCResources/Assets/Config`. Every file in that folder is named
+`c<ResourceName>.yml`, and the build generates a composite resource for each
+matching Microsoft365DSC resource. Entries that no longer exist in the pinned
+Microsoft365DSC version are silently skipped.
 
-- cAADAdministrativeUnit
-- cAADApplication
-- cAADAuthenticationMethodPolicy
-- cAADAuthenticationMethodPolicyAuthenticator
-- cAADAuthenticationMethodPolicyEmail
-- cAADAuthenticationMethodPolicyFido2
-- cAADAuthenticationMethodPolicySms
-- cAADAuthenticationMethodPolicySoftware
-- cAADAuthenticationMethodPolicyTemporary
-- cAADAuthenticationMethodPolicyVoice
-- cAADAuthenticationMethodPolicyX509
-- cAADAuthenticationStrengthPolicy
-- cAADAuthorizationPolicy
-- cAADConditionalAccessPolicy
-- cAADCrossTenantAccessPolicy
-- cAADExternalIdentityPolicy
-- cAADGroup
-- cAADGroupLifecyclePolicy
-- cAADGroupsNamingPolicy
-- cAADGroupsSettings
-- cAADNamedLocationPolicy
-- cAADRoleDefinition
-- cAADRoleSetting
-- cAADSecurityDefaults
-- cAADServicePrincipal
-- cAADTenantDetails
-- cAADTokenLifetimePolicy
+If the folder is empty, the build falls back to generating a composite resource
+for every Microsoft365DSC resource.
 
-### Exchange Online (EXO)
-
-- cEXOAcceptedDomain
-- cEXODistributionGroup
-- cEXOInboundConnector
-- cEXOManagementRole
-- cEXOManagementRoleAssignment
-- cEXOManagementRoleEntry
-- cEXOOutboundConnector
-- cEXORemoteDomain
-- cEXOTransportConfig
-- cEXOTransportRule
-
-### Intune
-
-- cIntuneAccountProtectionLocalAdministratorPasswordSolutionPolicy
-- cIntuneAccountProtectionLocalUserGroupMembershipPolicy
-- cIntuneAccountProtectionPolicy
-- cIntuneAntivirusPolicyWindows10SettingCatalog
-- cIntuneAppConfigurationDevicePolicy
-- cIntuneAppConfigurationPolicy
-- cIntuneApplicationControlPolicyWindows10
-- cIntuneAppProtectionPolicyAndroid
-- cIntuneAppProtectionPolicyiOS
-- cIntuneDeviceAndAppManagementAssignmentFilter
-- cIntuneDeviceCategory
-- cIntuneDeviceCleanupRule
-- cIntuneDeviceCompliancePolicyAndroid
-- cIntuneDeviceCompliancePolicyAndroidDeviceOwner
-- cIntuneDeviceCompliancePolicyAndroidWorkProfile
-- cIntuneDeviceCompliancePolicyiOs
-- cIntuneDeviceCompliancePolicyMacOS
-- cIntuneDeviceCompliancePolicyWindows10
-- cIntuneDeviceConfigurationPolicyWindows10
-- cIntunePolicySets
-- cIntuneRoleAssignment
-- cIntuneSettingCatalogASRRulesPolicyWindows10
-- cIntuneSettingCatalogCustomPolicyWindows10
-
-### SharePoint Online (SPO)
-
-- cSPOAccessControlSettings
-- cSPOSharingSettings
-- cSPOTenantSettings
-
-### Security & Compliance (SC)
-
-- cSCAutoSensitivityLabelPolicy
-- cSCAutoSensitivityLabelRule
-- cSCAuditConfigurationPolicy
-- cSCComplianceTag
-- cSCDeviceConditionalAccessPolicy
-- cSCDeviceConfigurationPolicy
-- cSCDLPCompliancePolicy
-- cSCDLPComplianceRule
-- cSCFilePlanPropertyAuthority
-- cSCFilePlanPropertyCategory
-- cSCFilePlanPropertyCitation
-- cSCFilePlanPropertyDepartment
-- cSCFilePlanPropertyReferenceId
-- cSCFilePlanPropertySubCategory
-- cSCProtectionAlert
-- cSCRetentionCompliancePolicy
-- cSCRetentionComplianceRule
-- cSCRetentionEventType
-- cSCRoleGroup
-- cSCRoleGroupMember
-- cSCSecurityFilter
-- cSCSupervisoryReviewPolicy
-- cSCSupervisoryReviewRule
-
-### Office 365 (O365)
-
-- cO365OrgSettings
-
-### Teams
-
-- Various Teams-related resources
+This coupling is intentional: a composite resource is only shipped when there is
+configuration data that proves it compiles to a MOF file.
 
 ## Resource Types
 
 The resources are categorized into two types:
 
-1. **Scalar Resources**: Resources that have a single instance per tenant, identified by the `IsSingleInstance` property.
-2. **Array Resources**: Resources that can have multiple instances and are configured using an array of items.
+1. **Scalar Resources**: Resources that expose an `IsSingleInstance` property.
+   The composite resource mirrors the parameters of the underlying resource one
+   to one. Example: `cAADSecurityDefaults`, `cSPOTenantSettings`.
+1. **Array Resources**: Every other resource. The composite resource takes a
+   single `Items` array of hashtables plus the shared connection parameters.
+   Example: `cAADGroup`, `cEXOTransportRule`.
 
 ## Resource Generation
 
-These resources are dynamically generated during the build process from Microsoft365DSC resources. The generation process:
+These resources are generated during the build process from the Microsoft365DSC
+resources. The generation process:
 
-1. Identifies all Microsoft365DSC resources
-2. Determines if each resource is a scalar or array type
-3. Creates corresponding composite resources with appropriate parameters
-4. Adds authentication parameters (Credential, CertificateThumbprint, ApplicationId, etc.)
+1. Reads the resource names from `tests/Unit/DSCResources/Assets/Config`
+1. Determines if each resource is a scalar or array type
+1. Creates corresponding composite resources with appropriate parameters
+1. Adds the connection parameters (`TenantId`, `ManagedIdentity`, `Credential`,
+   `CertificateThumbprint`, `ApplicationSecret`, `ApplicationId`,
+   `AccessTokens`) to each array composite resource
+1. Embeds the syntax block of the underlying Microsoft365DSC resource as a
+   comment so the available properties stay discoverable
 
-The generated resources are not stored in the repository but are created during module build.
+The generated resources are not stored in the repository. They are written to
+`source/DSCResources` on every build and excluded by `.gitignore`.
 
 ## Viewing Available Resources
 
 To see the list of composite resources available in your current installation:
 
 ```powershell
-Get-DscResource -Module DscConfig.M365
+Get-DscResource -Module DscConfig.M365 | Select-Object -ExpandProperty Name
 ```
+
+To group them by workload:
+
+```powershell
+Get-DscResource -Module DscConfig.M365 |
+    Group-Object { $_.Name -replace '^c([A-Z]+).*', '$1' } |
+    Select-Object Name, Count
+```
+
+To see the parameters of a single composite resource:
+
+```powershell
+Get-DscResource -Module DscConfig.M365 -Name cAADGroup -Syntax
+```
+
+## Adding a Resource
+
+1. Create `tests/Unit/DSCResources/Assets/Config/c<ResourceName>.yml` with sample
+   configuration data for the Microsoft365DSC resource.
+1. Run `./build.ps1 -Tasks build,test`.
+1. Confirm that `output/MOF/localhost_c<ResourceName>.mof` was produced.
+
+See [Getting Started](GettingStarted.md) for the full workflow.
 
 ## Resource Documentation
 
-For detailed documentation about each resource's parameters and usage, refer to the [Microsoft365DSC documentation](https://microsoft365dsc.com/docs/resources/), as the composite resources mirror the underlying Microsoft365DSC resources while simplifying their usage.
+For detailed documentation about each resource's parameters and usage, refer to
+the [Microsoft365DSC documentation](https://microsoft365dsc.com/resources/). The
+composite resources mirror the underlying Microsoft365DSC resources while
+simplifying their usage.
+
+## See Also
+
+- [Getting Started](GettingStarted.md)
+- [Usage](Usage.md)
+- [Examples](Examples.md)

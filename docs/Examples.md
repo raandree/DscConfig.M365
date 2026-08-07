@@ -2,6 +2,9 @@
 
 This document provides practical examples of using DscConfig.M365 composite resources for Microsoft 365 management.
 
+If you are looking for a walkthrough rather than snippets, see
+[Getting Started](GettingStarted.md).
+
 ## Basic Configuration Examples
 
 ### Azure Active Directory Security Defaults
@@ -43,20 +46,18 @@ configuration EXOAcceptedDomains_Example {
         cEXOAcceptedDomain AcceptedDomains {
             Items = @(
                 @{
-                    Identity           = 'contoso.com'
-                    DomainType         = 'Authoritative'
-                    MatchSubDomains    = $false
-                    OutboundOnly       = $false
-                    Default            = $true
-                    Ensure             = 'Present'
+                    Identity        = 'contoso.com'
+                    DomainType      = 'Authoritative'
+                    MatchSubDomains = $false
+                    OutboundOnly    = $false
+                    Ensure          = 'Present'
                 },
                 @{
-                    Identity           = 'contoso.mail.onmicrosoft.com'
-                    DomainType         = 'Authoritative'
-                    MatchSubDomains    = $false
-                    OutboundOnly       = $false
-                    Default            = $false
-                    Ensure             = 'Present'
+                    Identity        = 'contoso.mail.onmicrosoft.com'
+                    DomainType      = 'Authoritative'
+                    MatchSubDomains = $false
+                    OutboundOnly    = $false
+                    Ensure          = 'Present'
                 }
             )
             TenantId   = 'contoso.onmicrosoft.com'
@@ -119,18 +120,14 @@ configuration CertAuth_Example {
         cAADConditionalAccessPolicy Policies {
             Items = @(
                 @{
-                    DisplayName      = 'Require MFA for Admin Roles'
-                    State            = 'Enabled'
-                    Conditions       = @{
-                        Users = @{
-                            IncludeGroups = @('AdminRoles')
-                        }
-                    }
-                    GrantControls    = @{
-                        Operator = 'OR'
-                        BuiltInControls = @('MFA')
-                    }
-                    Ensure           = 'Present'
+                    DisplayName            = 'Require MFA for Admin Roles'
+                    State                  = 'enabled'
+                    IncludeRoles           = @('Global Administrator')
+                    IncludeApplications    = @('All')
+                    ClientAppTypes         = @('All')
+                    BuiltInControls        = @('Mfa')
+                    GrantControlOperator   = 'OR'
+                    Ensure                 = 'Present'
                 }
             )
             TenantId              = 'contoso.onmicrosoft.com'
@@ -140,6 +137,13 @@ configuration CertAuth_Example {
     }
 }
 ```
+
+> **Note:** The properties of a Microsoft365DSC resource are flat. Conditions and
+> controls are individual properties such as `IncludeRoles` and `BuiltInControls`
+> rather than nested objects. Run
+> `Get-DscResource -Module Microsoft365DSC -Name AADConditionalAccessPolicy -Syntax`
+> to see the full set, or read the syntax comment in the generated
+> `cAADConditionalAccessPolicy.schema.psm1`.
 
 ### Using Managed Identity
 
@@ -172,47 +176,60 @@ configuration ManagedIdentity_Example {
 
 ### YAML Configuration Example
 
-```yaml
-# Configuration data in YAML format for Microsoft365DscWorkshop
-configurations:
-  - M365:  # Configuration document name
-      DscResourcesToExecute:
-        cAADSecurityDefaults:
-          TenantId: contoso.onmicrosoft.com
-          Credential: "[ENC=PE9ianMgVmVyc2lvbj0iMS4xLjAu...encoded credential...==]"
-          IsSingleInstance: 'Yes'
-          IsEnabled: true
+In Microsoft365DscWorkshop each composite resource gets its own YAML file, named
+after the composite resource, and the content of the file is the parameter set of
+that composite resource.
 
-        cEXOAcceptedDomain:
-          TenantId: contoso.onmicrosoft.com
-          Credential: "[ENC=PE9ianMgVmVyc2lvbj0iMS4xLjAu...encoded credential...==]"
-          Items:
-            - Identity: 'contoso.com'
-              DomainType: 'Authoritative'
-              MatchSubDomains: false
-              OutboundOnly: false
-              Default: true
-              Ensure: 'Present'
-            - Identity: 'contoso.mail.onmicrosoft.com'
-              DomainType: 'Authoritative'
-              MatchSubDomains: false
-              OutboundOnly: false
-              Default: false
-              Ensure: 'Present'
+`source/1-AllTenantsConfig/AzureAd/cAADSecurityDefaults.yml`:
+
+```yaml
+IsSingleInstance: 'Yes'
+IsEnabled: false
+TenantId: '[x={ $azBuildParameters."$($Node.Environment)".AzTenantName }=]'
+ManagedIdentity: true
 ```
 
-> Note: Please refer to the [configuration data for the Pester](../tests//Unit//DSCResources//Assets/Config/) tests for further examples
+`source/1-AllTenantsConfig/Exchange/cEXOAcceptedDomain.yml`:
+
+```yaml
+Items:
+  - Identity: contoso.com
+    DomainType: Authoritative
+    MatchSubDomains: false
+    OutboundOnly: false
+    Ensure: Present
+  - Identity: contoso.mail.onmicrosoft.com
+    DomainType: Authoritative
+    MatchSubDomains: false
+    OutboundOnly: false
+    Ensure: Present
+```
+
+Both resources are only enacted when they are listed in the `Configurations.yml`
+of their folder:
+
+```yaml
+- cAADSecurityDefaults
+```
+
+> Note: Please refer to the
+> [configuration data for the Pester tests](../tests/Unit/DSCResources/Assets/Config/)
+> for further examples.
 
 ### Complete Example with Microsoft365DscWorkshop
 
-For a complete example of how to use DscConfig.M365 with Microsoft365DscWorkshop, refer to the examples in the [Microsoft365DscWorkshop repository](https://github.com/raandree/Microsoft365DscWorkshop).
+For a complete example of how to use DscConfig.M365 with
+Microsoft365DscWorkshop, refer to the
+[Microsoft365DscWorkshop repository](https://github.com/dsccommunity/Microsoft365DscWorkshop)
+and to [Integration with Microsoft365DscWorkshop](Integration.md).
 
 ## Best Practices
 
 1. **Use Parameter Values for Credentials**: Always pass credentials as parameters rather than hardcoding them.
-2. **Use Single Connection Parameters**: When configuring multiple resources, use the same credential or authentication method for all resources.
-3. **Organize by Workload**: Group resources by workload for better readability.
-4. **Use Array Resources Effectively**: Combine related items into a single array resource rather than creating multiple instances of the same resource.
-5. **Test Configurations**: Always test configurations in a test environment before applying them to production.
+1. **Use Single Connection Parameters**: Set the connection parameters once on
+   the composite resource instead of repeating them on every item.
+1. **Organize by Workload**: Group resources by workload for better readability.
+1. **Use Array Resources Effectively**: Combine related items into a single array resource rather than creating multiple instances of the same resource.
+1. **Test Configurations**: Always test configurations in a test environment before applying them to production.
 
 For more examples and use cases, see the test configurations in the [tests directory](https://github.com/dsccommunity/DscConfig.M365/tree/main/tests/Unit/DSCResources/Assets/Config) or refer to the [Microsoft365DscWorkshop](https://github.com/dsccommunity/Microsoft365DscWorkshop).

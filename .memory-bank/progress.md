@@ -1,6 +1,6 @@
 ---
 status: current
-last-verified: 2026-08-04
+last-verified: 2026-08-07
 owner: active-agent
 source: repository evidence
 ---
@@ -9,12 +9,15 @@ source: repository evidence
 
 ## Current status
 
-Released through tag `v0.6.1-preview0001` at commit `333142b`. A Microsoft365DSC
-bump to `1.26.729.2` is in progress and uncommitted on branch
-`feature/update2608`.
+Released through tag `v0.6.1` at commit `8c618f3` on `main`, which carries the
+Microsoft365DSC bump to `1.26.729.2`. A documentation refresh is in progress.
 
 ## Recent milestones
 
+- 2026-08-07 Documentation refreshed: added `docs/GettingStarted.md`, corrected
+  the Microsoft365DscWorkshop repository URL and integration model, fixed invalid
+  resource properties in the examples, and replaced the stale hard-coded list in
+  `docs/Resources.md`.
 - 2026-08-04 Microsoft365DSC bumped to `1.26.729.2`; composite generator fixed
   for embedded CIM instance types and 21 test config assets realigned with the
   new schemas. `./build.ps1 -Tasks build,test` is green (509 passed, 0 failed).
@@ -24,7 +27,6 @@ bump to `1.26.729.2` is in progress and uncommitted on branch
 - `b37ca52` Feature/common parameters (#41) — shared authentication parameters
   on `Array` composite resources.
 - `49a4806` Security and Compliance composite resources (#38), `v0.5.0`.
-- `66b5e7d` Intune composite resources (#36).
 
 ## Stable capabilities
 
@@ -37,10 +39,12 @@ bump to `1.26.729.2` is in progress and uncommitted on branch
 
 ## Open work
 
-- Commit the verified Microsoft365DSC `1.26.729.2` bump on `feature/update2608`
-  (held back at the user's request).
+- The working tree holds an uncommitted change that deletes most assets in
+  `tests/Unit/DSCResources/Assets/Config`, which reduces the generated composite
+  resource set. Decide whether that is intended before committing.
 - Decide whether `DscBuildHelpers` and `PSDesiredStateConfiguration` stay on
-  `latest` (currently unpinned in the working tree, previously pinned to
-  `0.3.0-preview0003` and `2.0.7`).
-- Seven test config assets reference resources that no longer exist in
-  Microsoft365DSC and are silently skipped by `Create_Dsc_Resource_Yaml_File`.
+  `latest` (currently unpinned, previously pinned to `0.3.0-preview0003` and
+  `2.0.7`).
+- The remaining `MD013` line-length warnings in `README.md`, `docs/Usage.md`,
+  `docs/Examples.md`, `docs/Integration.md` and `CHANGELOG.md` are pre-existing
+  prose that was not rewritten.
