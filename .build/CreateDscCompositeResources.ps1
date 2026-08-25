@@ -135,6 +135,10 @@ function New-DscCompositeResourceCode
         [string]
         $DscResourceModuleName,
 
+        [Parameter()]
+        [version]
+        $DscResourceModuleVersion,
+
         [Parameter(Mandatory = $true)]
         [ValidateSet('Scalar', 'Array')]
         [string]
@@ -152,13 +156,43 @@ function New-DscCompositeResourceCode
             [string]
             $DscResourceModuleName,
 
+            [Parameter()]
+            [version]
+            $DscResourceModuleVersion,
+
             [Parameter(Mandatory = $true)]
             [string]
             $DscResourceName
         )
-        Get-DscResourceProperty -ModuleInfo (Get-Module -Name $DscResourceModuleName -ListAvailable) -ResourceName $DscResourceName
-    } -DscResourceModuleName $DscResourceModuleName -DscResourceName $DscResourceName |
-        Where-Object -FilterScript { $_.Name -notin 'PsDscRunAsCredential', 'DependsOn' }
+
+        # Multiple versions can be present in PSModulePath; Get-DscResourceProperty expects a single PSModuleInfo.
+        $moduleCandidates = Get-Module -Name $DscResourceModuleName -ListAvailable
+        if ($PSBoundParameters.ContainsKey('DscResourceModuleVersion'))
+        {
+            $moduleInfo = $moduleCandidates |
+                Where-Object -FilterScript { $_.Version -eq $DscResourceModuleVersion } |
+                    Select-Object -First 1
+                }
+                else
+                {
+                    $moduleInfo = $moduleCandidates |
+                        Sort-Object -Property Version -Descending |
+                            Select-Object -First 1
+                        }
+
+                        if (-not $moduleInfo)
+                        {
+                            if ($PSBoundParameters.ContainsKey('DscResourceModuleVersion'))
+                            {
+                                throw "Could not find DSC resource module '$DscResourceModuleName' with version '$DscResourceModuleVersion' in PSModulePath."
+                            }
+
+                            throw "Could not find DSC resource module '$DscResourceModuleName' in PSModulePath."
+                        }
+
+                        Get-DscResourceProperty -ModuleInfo $moduleInfo -ResourceName $DscResourceName
+                    } -DscResourceModuleName $DscResourceModuleName -DscResourceModuleVersion $DscResourceModuleVersion -DscResourceName $DscResourceName |
+                        Where-Object -FilterScript { $_.Name -notin 'PsDscRunAsCredential', 'DependsOn' }
 
     if (-not $dscParameters)
     {
@@ -326,15 +360,40 @@ function New-DscCompositeResourceCode
 
 task Create_Dsc_Composite_Resources {
 
+    $requiredModulesPath = Join-Path -Path $BuildRoot -ChildPath 'RequiredModules.psd1'
+    $requiredModules = Import-PowerShellDataFile -Path $requiredModulesPath
+    $microsoft365DscVersion = [version] $requiredModules.Microsoft365DSC
+
     Remove-Item -Path $SourcePath\DSCResources -Recurse -Force -ErrorAction SilentlyContinue
     mkdir -Path $SourcePath\DSCResources -Force | Out-Null
 
     $dscResourceModules = Get-Content -Path $SourcePath\DSCResources.yml -Raw | ConvertFrom-Yaml
 
+    $originalPsModulePath = $env:PSModulePath
+
     foreach ($dscResourceModule in $dscResourceModules.GetEnumerator())
     {
         #Get syntax for all DSC Resources in the module. Getting them one by one is too slow.
-        $dscResourceSyntax = Get-DscResource -Module $dscResourceModule.Name -Syntax
+        if ($dscResourceModule.Name -eq 'Microsoft365DSC')
+        {
+            $moduleSpec = @{
+                ModuleName    = $dscResourceModule.Name
+                ModuleVersion = $microsoft365DscVersion
+            }
+
+            # Avoid duplicate CIM class definitions when the same version exists in system module paths.
+            $env:PSModulePath = ($originalPsModulePath -split ';' | Where-Object {
+                    $_ -and $_ -notmatch '^[A-Za-z]:\\Program Files\\(WindowsPowerShell|PowerShell)\\Modules'
+                }) -join ';'
+
+            $dscResourceSyntax = Get-DscResource -Module $moduleSpec -Syntax
+
+            $env:PSModulePath = $originalPsModulePath
+        }
+        else
+        {
+            $dscResourceSyntax = Get-DscResource -Module $dscResourceModule.Name -Syntax
+        }
         $dscResourceSyntax | Add-Member -Name ResourceName -MemberType ScriptProperty -Value { ($this -split ' ')[0] }
 
         foreach ($dscResource in $dscResourceModule.Value.GetEnumerator())
@@ -344,6 +403,11 @@ task Create_Dsc_Composite_Resources {
                 DscResourceName       = $dscResource.Name
                 CompositeResourceName = $dscResource.Value.CompositeResourceName
                 ParameterType         = $dscResource.Value.ParameterType
+            }
+
+            if ($dscResourceModule.Name -eq 'Microsoft365DSC')
+            {
+                $param.DscResourceModuleVersion = $microsoft365DscVersion
             }
 
             $utf8NoBomEncoding = [System.Text.UTF8Encoding]::new($false)
@@ -358,5 +422,7 @@ task Create_Dsc_Composite_Resources {
         }
 
     }
+
+    $env:PSModulePath = $originalPsModulePath
 
 }

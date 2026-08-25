@@ -8,11 +8,11 @@
         }
     }
 
-    Microsoft365DSC             = '1.26.729.2'
+    Microsoft365DSC             = '1.26.819.1'
 
     InvokeBuild                 = 'latest'
     PSScriptAnalyzer            = 'latest'
-    Pester                      = 'latest'
+    Pester                      = '5.9.1'
     Plaster                     = 'latest'
     ModuleBuilder               = 'latest'
     ChangelogManagement         = 'latest'

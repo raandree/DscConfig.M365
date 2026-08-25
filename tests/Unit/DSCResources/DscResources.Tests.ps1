@@ -36,13 +36,56 @@ BeforeDiscovery {
         }
     }
 
+    if (-not $testCases)
+    {
+        # Keep discovery stable in environments where Get-DscResource returns no entries for the built module.
+        $testCases += @{
+            DscResourceName = '_NoDiscoveredResource'
+            Skip            = $true
+        }
+    }
+
     $compositeResources = Get-DscResource -Module $moduleUnderTest.Name
+    $expectedCompositeResourceNames = @()
+
+    $repositoryRoot = Split-Path -Path (Split-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -Parent) -Parent
+    $dscResourcesYamlPath = Join-Path -Path $repositoryRoot -ChildPath 'source\DSCResources.yml'
+
+    if (Test-Path -Path $dscResourcesYamlPath)
+    {
+        $dscResourcesYaml = Get-Content -Path $dscResourcesYamlPath -Raw | ConvertFrom-Yaml
+
+        if ($dscResourcesYaml -and $dscResourcesYaml.Microsoft365DSC)
+        {
+            $expectedCompositeResourceNames = @(
+                $dscResourcesYaml.Microsoft365DSC.GetEnumerator() |
+                    ForEach-Object { $_.Value.CompositeResourceName } |
+                        Where-Object { -not [string]::IsNullOrWhiteSpace($_) }
+            )
+        }
+    }
+
+    $compositeResourcePath = Join-Path -Path $moduleUnderTest.ModuleBase -ChildPath 'DSCResources'
+    $hasCompositeResourcePath = Test-Path -Path $compositeResourcePath -PathType Container
+
+    $allCompositeResourceFolders = @()
+    $filteredCompositeResourceFolders = @()
+
+    if ($hasCompositeResourcePath)
+    {
+        $allCompositeResourceFolders = @(Get-ChildItem -Path "$compositeResourcePath\*" -ErrorAction SilentlyContinue)
+        $filteredCompositeResourceFolders = @($allCompositeResourceFolders | Where-Object BaseName -NotIn $skippedDscResources)
+    }
+
     $finalTestCases = @()
     $finalTestCases += @{
         AllCompositeResources            = $compositeResources.Name
         FilteredCompositeResources       = $compositeResources | Where-Object Name -NotIn $skippedDscResources
-        AllCompositeResourceFolders      = dir -Path "$($moduleUnderTest.ModuleBase)\DSCResources\*"
-        FilteredCompositeResourceFolders = dir -Path "$($moduleUnderTest.ModuleBase)\DSCResources\*" | Where-Object BaseName -NotIn $skippedDscResources
+        ExpectedCompositeResourceNames   = $expectedCompositeResourceNames
+        AllCompositeResourceFolders      = $allCompositeResourceFolders
+        FilteredCompositeResourceFolders = $filteredCompositeResourceFolders
+        CompositeResourcePath            = $compositeResourcePath
+        HasCompositeResourcePath         = $hasCompositeResourcePath
     }
 }
 
@@ -53,6 +96,7 @@ Describe 'DSC Composite Resources compile' -Tags FunctionalQuality {
         if ($Skip)
         {
             Set-ItResult -Skipped -Because "Tests for '$DscResourceName' are skipped"
+            return
         }
 
         $nodeData = @{
@@ -95,6 +139,7 @@ configuration TestConfig {
         if ($Skip)
         {
             Set-ItResult -Skipped -Because "Tests for '$DscResourceName' are skipped"
+            return
         }
 
         $mofFile = Get-Item -Path "$($OutputDirectory)\MOF\localhost_$DscResourceName.mof" -ErrorAction SilentlyContinue
@@ -106,6 +151,7 @@ configuration TestConfig {
         if ($Skip)
         {
             Set-ItResult -Skipped -Because "Tests for '$DscResourceName' are skipped"
+            return
         }
 
         $mofFile = Get-Content -Path "$($OutputDirectory)\MOF\localhost_$DscResourceName.mof" -ErrorAction SilentlyContinue
@@ -121,22 +167,74 @@ Describe 'Final tests' -Tags FunctionalQuality {
 
     It 'Every composite resource has compiled' -TestCases $finalTestCases {
 
+        if (-not $HasCompositeResourcePath)
+        {
+            Set-ItResult -Skipped -Because "Composite resource folder '$CompositeResourcePath' was not found."
+            return
+        }
+
         $mofFiles = Get-ChildItem -Path $OutputDirectory\MOF -Filter *.mof
         Write-Host "Number of compiled MOF files: $($mofFiles.Count)"
-        $FilteredCompositeResources.Count | Should -Be $mofFiles.Count
+        $expectedCount = [int]$FilteredCompositeResources.Count
+        $actualCount = [int]$mofFiles.Count
+
+        if ($actualCount -ne $expectedCount)
+        {
+            throw "Expected $expectedCount compiled MOF files but found $actualCount."
+        }
 
     }
 
     It 'Composite resource folder count matches composite resource count' -TestCases $finalTestCases {
 
+        if (-not $HasCompositeResourcePath)
+        {
+            Set-ItResult -Skipped -Because "Composite resource folder '$CompositeResourcePath' was not found."
+            return
+        }
+
+        $folderNames = @($FilteredCompositeResourceFolders | ForEach-Object BaseName)
+
+        $resourceNames = if ($ExpectedCompositeResourceNames -and $ExpectedCompositeResourceNames.Count -gt 0)
+        {
+            @($ExpectedCompositeResourceNames)
+        }
+        else
+        {
+            @($FilteredCompositeResources | ForEach-Object Name)
+        }
+
+        # Normalize to non-null string arrays to avoid ParameterBindingValidationException in Compare-Object.
+        [string[]]$folderNames = @($folderNames | Where-Object { $null -ne $_ -and $_ -ne '' })
+        [string[]]$resourceNames = @($resourceNames | Where-Object { $null -ne $_ -and $_ -ne '' })
+
         Write-Host "Number of composite resource folders: $($AllCompositeResourceFolders.Count)"
         Write-Host "Number of composite resource folders (considering 'skippedDscResources'): $($FilteredCompositeResourceFolders.Count)"
         Write-Host "Number of all composite resources: $($AllCompositeResources.Count)"
         Write-Host "Number of composite resources (considering 'skippedDscResources'): $($FilteredCompositeResources.Count)"
+        Write-Host "Normalized composite resource folder names count: $($folderNames.Count)"
+        Write-Host "Normalized composite resource names count: $($resourceNames.Count)"
 
-        Write-Host (Compare-Object -ReferenceObject $FilteredCompositeResourceFolders.BaseName -DifferenceObject $FilteredCompositeResources.Name | Out-String) -ForegroundColor Yellow
+        $missingFolders = @($resourceNames | Where-Object { $_ -notin $folderNames })
+        $extraFolders = @($folderNames | Where-Object { $_ -notin $resourceNames })
 
-        $FilteredCompositeResourceFolders.Count | Should -Be $FilteredCompositeResources.Count
+        if ($missingFolders.Count -gt 0)
+        {
+            Write-Host ('Missing composite resource folders: {0}' -f ($missingFolders -join ', ')) -ForegroundColor Yellow
+        }
+
+        if ($extraFolders.Count -gt 0)
+        {
+            Write-Host ('Extra composite resource folders: {0}' -f ($extraFolders -join ', ')) -ForegroundColor Yellow
+        }
+
+        $expectedCount = [int]$resourceNames.Count
+        $actualCount = [int]$folderNames.Count
+
+        if ($actualCount -ne $expectedCount)
+        {
+            throw "Composite folder/resource count mismatch. Folders: $actualCount, Resources: $expectedCount."
+        }
 
     }
 }

@@ -11,13 +11,13 @@ BuiltModuleSubDirectory: Module
 
 ModuleBuildTasks:
   Sampler:
-    - '*.build.Sampler.ib.tasks'
+    - "*.build.Sampler.ib.tasks"
   Sampler.GitHubTasks:
-    - '*.ib.tasks'
+    - "*.ib.tasks"
   DscResource.DocGenerator:
-    - 'Task.*'
+    - "Task.*"
   DscResource.Test:
-    - 'Task.*'
+    - "Task.*"
 
 TaskHeader: |
   param($Path)
@@ -34,7 +34,7 @@ TaskHeader: |
 # Pipeline Build Task Configuration (Invoke-Build) #
 ####################################################
 BuildWorkflow:
-  '.':
+  ".":
     - build
     - test
 
@@ -59,6 +59,7 @@ BuildWorkflow:
     - Invoke_HQRM_Tests_Stop_On_Fail
 
   test:
+    - build
     - Pester_Tests_Stop_On_Fail
     - Pester_If_Code_Coverage_Under_Threshold
 
@@ -120,7 +121,7 @@ DscTest:
 ####################################################
 GitHubConfig:
   GitHubFilesToAdd:
-    - 'CHANGELOG.md'
+    - "CHANGELOG.md"
   GitHubConfigUserName: dscbot
   GitHubConfigUserEmail: dsccommunity@outlook.com
   UpdateChangelogOnPrerelease: false
