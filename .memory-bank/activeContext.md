@@ -1,6 +1,6 @@
 ---
 status: current
-last-verified: 2026-08-07
+last-verified: 2026-08-30
 owner: active-agent
 source: current task evidence
 ---
@@ -9,39 +9,35 @@ source: current task evidence
 
 ## Current focus
 
-Refresh the documentation under `docs/` and `README.md`: correct the
-Microsoft365DscWorkshop integration, and add a getting started guide.
+Restore a green CI run. The `Windows (Windows PowerShell)` test job has failed
+on every `main` build since `da590d5`.
 
 ## Evidence
 
-- The workshop moved to `dsccommunity/Microsoft365DscWorkshop`. Every doc still
-  linked `raandree/Microsoft365DscWorkshop`.
-- `docs/Integration.md`, `docs/Usage.md` and `docs/Examples.md` documented a
-  `configurations:` / `DscResourcesToExecute:` YAML shape and a
-  `source/AllNodes/Dev/M365.yml` path that do not exist in the workshop. The
-  workshop keeps one YAML file per composite resource, named after the resource
-  (`source/1-AllTenantsConfig/AzureAd/cAADGroup.yml`), selects composites through
-  a `Configurations.yml` list per folder, and controls array merging through
-  `lookup_options` in `source/Datum.yml`.
-- The workshop pins `DscConfig.M365` in `RequiredModules.psd1` and registers it
-  under `Sampler.DscPipeline.DscCompositeResourceModules` in `build.yaml`.
-- Documentation examples used properties that Microsoft365DSC does not expose:
-  `AADApplication/AvailableToOtherTenants`, `EXOAcceptedDomain/Default`, and
-  nested `Conditions`/`GrantControls` on `AADConditionalAccessPolicy`. Verified
-  against `Get-DscResource -Module Microsoft365DSC`.
-- `docs/Installation.md` claimed Windows PowerShell 5.1 works. The
-  `TestPowerShell7` task fails the build on 5.1.
-- `docs/Resources.md` carried a hard-coded resource list containing resources
-  that no longer exist in Microsoft365DSC `1.26.729.2`.
-- `.markdownlint.json` sets `MD029: one` and `MD013: true`; the docs never
-  followed it. New and rewritten content now conforms; untouched long prose
-  lines were left alone.
-- `HEAD` is `8c618f3` on `main`, tagged `v0.6.1`. The working tree carries an
-  unrelated, uncommitted change that deletes most assets in
-  `tests/Unit/DSCResources/Assets/Config`; it was left untouched.
+- Azure DevOps build `1288` (`c1f5098`, `main`): only the
+  `Windows (Windows PowerShell)` job failed, after 44 s. `Package Module`,
+  `HQRM` and `Windows (PowerShell)` all succeeded.
+- Task log `1288/logs/24`: `TESTPOWERSHELL7` →
+  `ERROR: The build script requires PowerShell 7+ to work.` →
+  `PowerShell exited with code '1'.` The follow-up
+  `Publish Test MOF5 Files` task then reported
+  `Path does not exist: D:\a\1\s\output\MOF`, which is a symptom, not the cause.
+- Cause: `da590d5` (PR #47) added `- build` as the first step of the `test`
+  workflow in `build.yaml`. That job runs `./build.ps1 -tasks test` with
+  `pwsh: false`, so `build` → `TestPowerShell7` hard-errors on 5.1.
+- The Test-stage jobs already download the `output` pipeline artifact produced
+  by the Build stage, so they must not rebuild. Builds `694`, `920` and `1001`
+  were green with the pre-`da590d5` workflow.
+- Build `1287` (`da590d5`) also failed the `Windows (PowerShell)` job; PR #49
+  (`c1f5098`, "Corrected Test Files") fixed that one, leaving only the 5.1 job.
+- `Pester_Tests_Stop_On_Fail` in Sampler 0.120.1 depends only on
+  `Import_Pester, Invoke_Pester_Tests_v4, Invoke_Pester_Tests_v5,
+  Upload_Test_Results_To_AppVeyor, Pester_Run_Times,
+  Fail_Build_If_Pester_Tests_Failed` — no build task.
+- The Azure DevOps project `randree/e2d948b7-276d-46eb-bbbd-14947dc4fa6a` is
+  public; its build, timeline and log REST endpoints answer anonymously.
 
 ## Next step
 
-Decide what to do with the uncommitted deletion of the test configuration
-assets in the working tree. It shrinks the generated composite resource set,
-because `Create_Dsc_Resource_Yaml_File` derives that set from those files.
+Push the fix branch and confirm the `Windows (Windows PowerShell)` job reaches
+Pester and publishes `output/MOF` again.

@@ -1,6 +1,6 @@
 ---
 status: current
-last-verified: 2026-08-07
+last-verified: 2026-08-30
 owner: active-agent
 source: repository evidence
 ---
@@ -9,11 +9,15 @@ source: repository evidence
 
 ## Current status
 
-Released through tag `v0.6.1` at commit `8c618f3` on `main`, which carries the
-Microsoft365DSC bump to `1.26.729.2`. A documentation refresh is in progress.
+`main` is at `c1f5098`. Azure DevOps build `1288` failed only in the
+`Windows (Windows PowerShell)` test job; the fix is committed on a topic branch
+and not yet pushed.
 
 ## Recent milestones
 
+- 2026-08-30 Diagnosed build `1288`: `da590d5` added `- build` to the `test`
+  workflow, so the 5.1 test job died on `TestPowerShell7`. Removed it from
+  `build.yaml`.
 - 2026-08-07 Documentation refreshed: added `docs/GettingStarted.md`, corrected
   the Microsoft365DscWorkshop repository URL and integration model, fixed invalid
   resource properties in the examples, and replaced the stale hard-coded list in
@@ -39,9 +43,8 @@ Microsoft365DSC bump to `1.26.729.2`. A documentation refresh is in progress.
 
 ## Open work
 
-- The working tree holds an uncommitted change that deletes most assets in
-  `tests/Unit/DSCResources/Assets/Config`, which reduces the generated composite
-  resource set. Decide whether that is intended before committing.
+- Push the `ai/fix-test-workflow-ps7-guard` branch and confirm the
+  `Windows (Windows PowerShell)` job goes green.
 - Decide whether `DscBuildHelpers` and `PSDesiredStateConfiguration` stay on
   `latest` (currently unpinned, previously pinned to `0.3.0-preview0003` and
   `2.0.7`).
