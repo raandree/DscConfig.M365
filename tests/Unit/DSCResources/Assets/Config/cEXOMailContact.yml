@@ -1,6 +1,5 @@
 Items:
-  - TestMailContact:
-    Alias: "TestMailContact"
+  - Alias: "TestMailContact"
     DisplayName: "My Test Contact"
     Ensure: "Present"
 

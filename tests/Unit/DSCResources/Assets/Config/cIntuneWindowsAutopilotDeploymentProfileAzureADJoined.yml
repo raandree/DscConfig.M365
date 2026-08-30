@@ -1,5 +1,4 @@
 Items:
-  - Example:
     Assignments:
       - deviceAndAppManagementAssignmentFilterType: "none"
         dataType: "#microsoft.graph.allDevicesAssignmentTarget"

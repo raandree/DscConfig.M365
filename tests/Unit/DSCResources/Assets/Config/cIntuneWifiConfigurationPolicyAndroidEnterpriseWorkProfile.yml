@@ -1,5 +1,4 @@
 Items:
-  - myWifiConfigAndroidWorkProfilePolicy:
     DisplayName: "wifi - android BYOD"
     Assignments:
       - deviceAndAppManagementAssignmentFilterType: "none"

@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `IntuneWindowsHelloForBusinessGlobalPolicy`, and the Android Enterprise Wi-Fi
   configuration policies (`AndroidEnterpriseDeviceOwner`,
   `AndroidEnterpriseWorkProfile`, `AndroidForWork`, `AndroidOpenSourceProject`).
+- Corrected Syntax Errors for Example configuration data for the contrbuted resources
 
 ### Removed
 

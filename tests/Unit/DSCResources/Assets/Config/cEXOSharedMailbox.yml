@@ -1,6 +1,5 @@
 Items:
-  - SharedMailbox:
-    DisplayName: "Integration"
+  - DisplayName: "Integration"
     PrimarySMTPAddress: "Integration@tailspintoys.com"
     EmailAddresses:
       - "IntegrationSM@tailspintoys.com"

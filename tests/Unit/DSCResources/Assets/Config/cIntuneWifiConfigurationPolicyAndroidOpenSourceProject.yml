@@ -1,5 +1,4 @@
 Items:
-  - myWifiConfigAndroidOpensourcePolicy:
     DisplayName: "wifi aosp"
     Assignments:
       - deviceAndAppManagementAssignmentFilterType: "none"
