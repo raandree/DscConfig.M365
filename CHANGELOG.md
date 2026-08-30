@@ -10,6 +10,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - New `docs/GettingStarted.md` guide covering both supported paths: consuming the
   composite resources through Microsoft365DscWorkshop and building this module
   from source, including prerequisites, a first configuration and troubleshooting.
+- Test configuration data for additional Microsoft365DSC resources:
+  `AADB2BManagementPolicy`, `AADDeviceRegistrationPolicy`, `EXOMailContact`,
+  `EXOSharedMailbox`, `IntuneWindowsAutopilotDeploymentProfileAzureADJoined`,
+  `IntuneWindowsHelloForBusinessGlobalPolicy`, and the Android Enterprise Wi-Fi
+  configuration policies (`AndroidEnterpriseDeviceOwner`,
+  `AndroidEnterpriseWorkProfile`, `AndroidForWork`, `AndroidOpenSourceProject`).
+
+### Removed
+
+- Obsolete `cIntuneWifiConfigurationPolicyAndroidDeviceAdministrator` test
+  configuration data.
 
 ### Changed
 
@@ -38,6 +49,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   including `ApplicationSecret` and `AccessTokens`, and noted that the push-down
   to `Items` is only generated for resources that expose `Ensure`.
 - Update Microsoft365DSC to version 1.26.729.2 and set DscBuildHelpers and PSDesiredStateConfiguration to latest.
+- Update Microsoft365DSC to version 1.26.819.1.
+- Pinned `Pester` to `5.9.1` in `RequiredModules.psd1`; the `test` build workflow
+  now runs `build` first.
+- The `Create_Dsc_Composite_Resources` and `Create_Dsc_Resource_Yaml_File` build
+  tasks now resolve Microsoft365DSC by the exact version pinned in
+  `RequiredModules.psd1` and temporarily strip the `Program Files` module paths
+  when calling `Get-DscResource`, avoiding duplicate CIM class definitions when
+  the same version is also present in a system module path.
+- `DscResources.Tests.ps1` keeps Pester discovery stable when `Get-DscResource`
+  returns nothing for the built module, skips the composite-resource checks when
+  the `DSCResources` folder is absent, and validates the generated set against
+  the composite resource names declared in `source/DSCResources.yml`.
 - Updated the test configuration data in `tests/Unit/DSCResources/Assets/Config` to the schemas
   shipped with Microsoft365DSC 1.26.729.2:
   - Removed the properties `AvailableToOtherTenants` (`AADApplication`, replaced by `SignInAudience`),
