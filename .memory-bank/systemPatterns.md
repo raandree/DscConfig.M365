@@ -71,3 +71,15 @@ Generated composite resource shape:
   (with the leading `c` stripped).
 - Rationale: Every generated resource is covered by a compile test.
 - Consequence: Supporting a new resource means adding its config asset first.
+
+### Decision 5: The `test` workflow must not depend on `build`
+
+- Choice: `BuildWorkflow.test` in `build.yaml` lists only the Pester tasks.
+- Rationale: `build` starts with `TestPowerShell7`, and the pipeline runs one
+  test job under Windows PowerShell 5.1 to produce the MOF5 artifact. Both Test
+  stage jobs download the `output` artifact published by the Build stage, so a
+  rebuild is unnecessary and, on 5.1, impossible.
+- Consequence: `./build.ps1 -Tasks test` assumes a prior build. Use
+  `./build.ps1` with no `-Tasks` (the `.` workflow) for a full local run.
+- Regression: `da590d5` added `- build` here and broke every `main` build until
+  it was removed.

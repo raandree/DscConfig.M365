@@ -51,8 +51,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   to `Items` is only generated for resources that expose `Ensure`.
 - Update Microsoft365DSC to version 1.26.729.2 and set DscBuildHelpers and PSDesiredStateConfiguration to latest.
 - Update Microsoft365DSC to version 1.26.819.1.
-- Pinned `Pester` to `5.9.1` in `RequiredModules.psd1`; the `test` build workflow
-  now runs `build` first.
+- Pinned `Pester` to `5.9.1` in `RequiredModules.psd1`.
 - The `Create_Dsc_Composite_Resources` and `Create_Dsc_Resource_Yaml_File` build
   tasks now resolve Microsoft365DSC by the exact version pinned in
   `RequiredModules.psd1` and temporarily strip the `Program Files` module paths
@@ -79,6 +78,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- The `test` build workflow no longer runs `build` first. `build` starts with
+  `TestPowerShell7`, so the `Windows (Windows PowerShell)` pipeline job failed
+  immediately with `The build script requires PowerShell 7+ to work.` and never
+  produced `output/MOF`. The test jobs consume the module built by the `Build`
+  stage, and `./build.ps1` without `-Tasks` still runs `build` then `test`.
 - The composite resource code generator no longer emits embedded CIM instance class names as parameter
   types. Properties like `AADAuthenticationMethodPolicy/RegistrationEnforcement` are now typed as
   `hashtable` (or `hashtable[]`), so the generated composite resource can be loaded and discovered again.
